@@ -37,4 +37,35 @@
             </div>
         </div>
     </section>
+
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            {% for produit in produits %}
+                <div class="product-card">
+                    <!-- Product Image (if available) -->
+                    {% if produit.fichier %}
+                        <img src="{{ asset('uploads/' ~ produit.fichier) }}" alt="{{ produit.name }}">
+                    {% else %}
+                        <img src="https://via.placeholder.com/300x200" alt="{{ produit.name }}">
+                    {% endif %}
+                    
+                    <h3>{{ produit.name }}</h3>
+                    <p>{{ produit.description }}</p>
+                    <p><strong>\${{ produit.prix|number_format(2, '.', ',') }}</strong></p>
+                    
+                    <!-- If stock is available, show 'Buy Now' button -->
+                    {% if produit.stock > 0 %}
+                        <button class="btn">Buy Now</button>
+                    {% else %}
+                        <button class="btn" disabled>Out of Stock</button>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>No products found.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+
 {% endblock %}
