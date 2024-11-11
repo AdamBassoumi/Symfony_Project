@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home - My Symfony Shop{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}  <!-- Include styles from base.html.twig -->
+    <link rel="stylesheet" href="{{ asset('assets/styles/homepage.css') }}">  <!-- Homepage specific CSS -->
+{% endblock %}
+
+{% block body %}
+    <div class="hero-section">
+        <h1>Welcome to My Symfony Shop</h1>
+        <p>Browse our collection of products and enjoy shopping!</p>
+        <a href="#" class="btn">Start Shopping</a>
+    </div>
+
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product 1">
+                <h3>Product 1</h3>
+                <p>$19.99</p>
+                <button class="btn">Buy Now</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product 2">
+                <h3>Product 2</h3>
+                <p>$24.99</p>
+                <button class="btn">Buy Now</button>
+            </div>
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x200" alt="Product 3">
+                <h3>Product 3</h3>
+                <p>$34.99</p>
+                <button class="btn">Buy Now</button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
