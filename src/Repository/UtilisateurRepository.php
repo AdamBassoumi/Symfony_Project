@@ -40,4 +40,12 @@ class UtilisateurRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function save(Utilisateur $utilisateur, bool $flush = true): void
+{
+    $this->getEntityManager()->persist($utilisateur);  // Correct way to get EntityManager
+    if ($flush) {
+        $this->getEntityManager()->flush();  // Commit changes to the database
+    }
+}
 }

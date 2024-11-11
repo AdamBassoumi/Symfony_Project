@@ -10,7 +10,7 @@ use App\Repository\ProduitRepository;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'home')]
+    #[Route('/', name: 'home')]
     public function index(ProduitRepository $produitRepository): Response
     {
         // Fetch all products

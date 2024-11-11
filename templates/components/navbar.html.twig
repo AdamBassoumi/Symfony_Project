@@ -12,8 +12,14 @@
             <li><a href="#" class="navbar-link">About</a></li>
             <li><a href="#" class="navbar-link">Contact</a></li>
 
-            <!-- Login Button -->
-            <li><a href="#" class="navbar-link login-btn">Login</a></li>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <!-- User is logged in, show logout -->
+                <li><a href="{{ path('logout') }}" class="navbar-link">Logout</a></li>
+            {% else %}
+                <!-- User is not logged in, show login/signup -->
+                <li><a href="{{ path('login') }}" class="navbar-link login-btn">Login</a></li>
+                <li><a href="{{ path('signup') }}" class="navbar-link signup-btn">Sign Up</a></li>
+            {% endif %}
         </ul>
 
         <!-- Mobile Menu Icon (hamburger) -->

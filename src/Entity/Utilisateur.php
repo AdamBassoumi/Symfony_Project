@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface; // Import the interface
 
 #[ORM\Entity]
 #[ORM\Table(name: "utilisateur")]
-class Utilisateur
+class Utilisateur implements PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -32,6 +33,7 @@ class Utilisateur
     private ?Shop $shop = null;
 
     // Getters and Setters for each property
+
     public function getId(): ?int
     {
         return $this->id;
@@ -101,5 +103,23 @@ class Utilisateur
     {
         $this->shop = $shop;
         return $this;
+    }
+
+    // Implement the getPassword() method from PasswordAuthenticatedUserInterface
+    public function getPassword(): string
+    {
+        return $this->mdp;  // Return the password field for hashing
+    }
+
+    // Optional: Implement getRoles() if needed (it can return an empty array or default roles)
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];  // Or any roles you'd like the user to have
+    }
+
+    // Optional: Implement getUserIdentifier() if needed (returns the user's unique identifier, typically email)
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }

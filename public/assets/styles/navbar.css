@@ -1,0 +1,140 @@
+/* Navbar Container */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar Inner Container */
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Navbar Brand (Logo and Name) */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand .logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Navbar Links (Desktop) */
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-link {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-link:hover {
+    background-color: #444;
+}
+
+/* Specific styling for the Login Button */
+.login-btn {
+    background-color: #007bff; /* Blue color for login button */
+    padding: 8px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Mobile Navbar Toggle */
+.navbar-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.navbar-toggle-icon {
+    width: 30px;
+    height: 4px;
+    background-color: white;
+    margin: 6px auto;
+    transition: 0.3s;
+}
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+    /* Show mobile toggle */
+    .navbar-toggle {
+        display: block;
+    }
+
+    /* Hide navbar links by default */
+    .navbar-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #333;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        padding: 20px 0;
+    }
+
+    /* Navbar Links when mobile toggle is clicked */
+    .navbar-links.active {
+        display: flex;
+    }
+
+    /* Navbar Links for Mobile */
+    .navbar-link {
+        padding: 15px;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Mobile Login Button */
+    .login-btn {
+        background-color: #007bff;
+        padding: 15px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .login-btn:hover {
+        background-color: #0056b3;
+    }
+}
+
+.navbar-link.signup-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.navbar-link.signup-btn:hover {
+    background-color: #218838;
+}
