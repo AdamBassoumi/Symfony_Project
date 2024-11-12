@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface; // Import the interface
 
 #[ORM\Entity]
 #[ORM\Table(name: "utilisateur")]
-class Utilisateur implements PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface,PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -31,6 +32,8 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: "utilisateur", cascade: ["persist", "remove"])]
     private ?Shop $shop = null;
+
+    private array $roles = [];
 
     // Getters and Setters for each property
 
@@ -111,15 +114,34 @@ class Utilisateur implements PasswordAuthenticatedUserInterface
         return $this->mdp;  // Return the password field for hashing
     }
 
-    // Optional: Implement getRoles() if needed (it can return an empty array or default roles)
     public function getRoles(): array
     {
-        return ['ROLE_USER'];  // Or any roles you'd like the user to have
+        // Ensure roles are always returned as an array
+        $roles = $this->roles;
+    
+        // If no roles are set, assign the default 'ROLE_USER'
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';  // Default role
+        }
+    
+        return $roles; // Return roles as an array
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
     }
 
     // Optional: Implement getUserIdentifier() if needed (returns the user's unique identifier, typically email)
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // If you store sensitive data in the entity, clear it here
+        // e.g. $this->plainPassword = null;
     }
 }

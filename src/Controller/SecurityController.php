@@ -10,15 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     private UserPasswordHasherInterface $passwordHasher;
+    private Security $security;
 
-    // Constructor to inject UserPasswordHasherInterface
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    // Constructor to inject UserPasswordHasherInterface and Security component
+    public function __construct(UserPasswordHasherInterface $passwordHasher, TokenStorageInterface $tokenStorage)
     {
         $this->passwordHasher = $passwordHasher;
+        $this->tokenStorage = $tokenStorage;
     }
 
     // Signup route
@@ -34,12 +40,13 @@ class SecurityController extends AbstractController
             // Hash the password using UserPasswordHasherInterface
             $hashedPassword = $this->passwordHasher->hashPassword($utilisateur, $utilisateur->getMdp());
             $utilisateur->setMdp($hashedPassword);
+            $utilisateur->setRoles(['ROLE_USER']); // Ensure roles are passed as an array
 
             // Save the user
             $userRepository->save($utilisateur, true);
 
-            // Redirect to login after successful signup
-            return $this->redirectToRoute('login');
+            // Redirect to home or dashboard after successful signup
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('security/signup.html.twig', [
@@ -49,9 +56,22 @@ class SecurityController extends AbstractController
 
     // Login route (just rendering the login form)
     #[Route('/login', name: 'login')]
-    public function login(): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('security/login.html.twig');
+        // Check if the user is already logged in
+        if ($this->getUser()) {
+            // If logged in, redirect to the home page (avoid login loop)
+            return $this->redirectToRoute('home');
+        }
+
+        // Get the login error (if any)
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
     }
 
     // Logout route (handled automatically by Symfony)
@@ -61,3 +81,4 @@ class SecurityController extends AbstractController
         // Symfony automatically handles logout
     }
 }
+

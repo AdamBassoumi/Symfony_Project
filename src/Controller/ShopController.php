@@ -4,81 +4,43 @@ namespace App\Controller;
 
 use App\Entity\Shop;
 use App\Form\ShopType;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ShopRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/shop')]
-final class ShopController extends AbstractController
+class ShopController extends AbstractController
 {
-    #[Route(name: 'app_shop_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/create_shop', name: 'create_shop')]
+    public function createShop(Request $request, ShopRepository $shopRepository): Response
     {
-        $shops = $entityManager
-            ->getRepository(Shop::class)
-            ->findAll();
+        // Get the currently authenticated user
+        $user = $this->getUser();
 
-        return $this->render('shop/index.html.twig', [
-            'shops' => $shops,
-        ]);
-    }
+        if (!$user) {
+            return $this->redirectToRoute('login');
+        }
 
-    #[Route('/new', name: 'app_shop_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
+        // Create a new Shop entity
         $shop = new Shop();
+        $shop->setUtilisateur($user);
+
+        // Create the form to fill in the shop details
         $form = $this->createForm(ShopType::class, $shop);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($shop);
-            $entityManager->flush();
+            // Save the shop
+            $shopRepository->save($shop, true);
 
-            return $this->redirectToRoute('app_shop_index', [], Response::HTTP_SEE_OTHER);
+            // After shop creation, you can redirect to the shop page or home page
+            return $this->redirectToRoute('home');
         }
 
-        return $this->render('shop/new.html.twig', [
-            'shop' => $shop,
-            'form' => $form,
+        return $this->render('shop/create_shop.html.twig', [
+            'form' => $form->createView(),
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_shop_show', methods: ['GET'])]
-    public function show(Shop $shop): Response
-    {
-        return $this->render('shop/show.html.twig', [
-            'shop' => $shop,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_shop_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Shop $shop, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ShopType::class, $shop);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_shop_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('shop/edit.html.twig', [
-            'shop' => $shop,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_shop_delete', methods: ['POST'])]
-    public function delete(Request $request, Shop $shop, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$shop->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($shop);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_shop_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+
