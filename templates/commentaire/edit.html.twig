@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Commentaire{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/commentaire.css') }}">
+{% endblock %}
 
 {% block body %}
     <h1>Edit Commentaire</h1>

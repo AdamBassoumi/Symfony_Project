@@ -2,6 +2,11 @@
 
 {% block title %}Utilisateur index{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}  <!-- Include styles from base.html.twig -->
+    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur.css') }}">  <!-- Specific CSS for Utilisateur -->
+{% endblock %}
+
 {% block body %}
     <h1>Utilisateur index</h1>
 
@@ -17,6 +22,9 @@
                 <th>actions</th>
             </tr>
         </thead>
+
+
+
         <tbody>
         {% for utilisateur in utilisateurs %}
             <tr>

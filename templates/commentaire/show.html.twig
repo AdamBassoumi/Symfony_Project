@@ -2,6 +2,11 @@
 
 {% block title %}Commentaire{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/commentaire.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Commentaire</h1>
 

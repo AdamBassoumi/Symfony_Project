@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Utilisateur{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur_new.css') }}">
+{% endblock %}
 
 {% block body %}
     <h1>Create new Utilisateur</h1>
