@@ -2,6 +2,11 @@
 
 {% block title %}Produit index{% endblock %}
 
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/produit.css') }}">
+{% endblock %}
 {% block body %}
     <h1>Produit index</h1>
 
