@@ -31,12 +31,9 @@ class Produit
     #[ORM\Column(type: "string")]
     private string $dateCreation;
 
-    #[ORM\Column(type: "integer")]
-    private int $stock;
-
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: "category_id", referencedColumnName: "id", nullable: false)]
-    private Category $category;
+    #[ORM\JoinColumn(name: "category_id", referencedColumnName: "id", nullable: true)]
+    private ?Category $category;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(name: "shop_id", referencedColumnName: "id", nullable: false)]
@@ -104,17 +101,6 @@ class Produit
     public function setDateCreation(string $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
-        return $this;
-    }
-
-    public function getStock(): ?int
-    {
-        return $this->stock;
-    }
-
-    public function setStock(int $stock): self
-    {
-        $this->stock = $stock;
         return $this;
     }
 

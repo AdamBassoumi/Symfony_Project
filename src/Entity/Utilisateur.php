@@ -27,10 +27,8 @@ class Utilisateur implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "string", length: 255)]
     private ?string $mdp = null;
 
-    #[ORM\Column(type: "boolean")]
-    private bool $hasShop = false;
 
-    #[ORM\OneToOne(mappedBy: "utilisateur", cascade: ["persist", "remove"])]
+    #[ORM\OneToOne(mappedBy: "utilisateur", cascade: ["persist", "remove"] , targetEntity: Shop::class)]
     private ?Shop $shop = null;
 
     private array $roles = [];

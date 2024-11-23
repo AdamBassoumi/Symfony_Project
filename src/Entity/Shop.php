@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Ignore;
@@ -30,6 +31,11 @@ class Shop
 
     #[ORM\OneToMany(mappedBy: 'shop', targetEntity: Produit::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $produits;
+
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+    }
 
     // Getters and Setters
     public function getId(): ?int

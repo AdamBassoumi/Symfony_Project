@@ -17,14 +17,10 @@ class ProduitType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('price')
+            ->add('prix')
             ->add('fichier')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'id',
-            ])
-            ->add('shop', EntityType::class, [
-                'class' => Shop::class,
                 'choice_label' => 'id',
             ])
         ;
