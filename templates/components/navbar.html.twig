@@ -8,13 +8,19 @@
         <!-- Navbar Links -->
         <ul class="navbar-links">
             <li><a href="{{ path('home') }}" class="navbar-link">Home</a></li>
-            <li><a href="#" class="navbar-link">Shop</a></li>
             <li><a href="#" class="navbar-link">About</a></li>
-            <li><a href="#" class="navbar-link">Contact</a></li>
 
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <!-- User is logged in, show logout -->
                 <li><a href="{{ path('logout') }}" class="navbar-link">Logout</a></li>
+
+                {% if app.user.shop %}
+                    <!-- User has a shop, show link to /myshop with shop name -->
+                    <li><a href="{{ path('myshop') }}" class="navbar-link">{{ app.user.shop.nom }}</a></li>
+                {% else %}
+                    <!-- User doesn't have a shop, show link to create a shop -->
+                    <li><a href="{{ path('create_shop') }}" class="navbar-link">Create Shop</a></li>
+                {% endif %}
             {% else %}
                 <!-- User is not logged in, show login/signup -->
                 <li><a href="{{ path('login') }}" class="navbar-link login-btn">Login</a></li>

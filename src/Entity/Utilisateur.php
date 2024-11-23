@@ -86,17 +86,6 @@ class Utilisateur implements UserInterface,PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getHasShop(): bool
-    {
-        return $this->hasShop;
-    }
-
-    public function setHasShop(bool $hasShop): self
-    {
-        $this->hasShop = $hasShop;
-        return $this;
-    }
-
     public function getShop(): ?Shop
     {
         return $this->shop;

@@ -32,15 +32,6 @@ class RegistrationType extends AbstractType
             ->add('mdp', PasswordType::class, [
                 'label' => 'Password',
                 'attr' => ['placeholder' => 'Enter your password'],
-            ])
-            ->add('hasShop', CheckboxType::class, [
-                'label' => 'Do you have a shop?',
-                'required' => false,
-                'mapped' => false, // Optionally use this field to indicate if the user has a shop
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Sign Up',
-                'attr' => ['class' => 'btn btn-primary'],
             ]);
     }
 
