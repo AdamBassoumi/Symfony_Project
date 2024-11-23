@@ -2,13 +2,13 @@
     <div class="navbar-container">
         <!-- Logo -->
         <a href="{{ path('home') }}" class="navbar-brand">
-            <img src="{{ asset('Images/logo.png') }}" alt="Shop Logo" class="logo">
+<img src="{{ asset('assets/images/logo.png') }}" alt="Shop Logo" class="logo">
         </a>
 
         <!-- Navbar Links -->
         <ul class="navbar-links">
             <li><a href="{{ path('home') }}" class="navbar-link">Home</a></li>
-            <li><a href="#" class="navbar-link">About</a></li>
+             <li><a href="{{ path('about_page') }}">About</a></li>
 
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <!-- User is logged in, show logout -->

@@ -91,11 +91,7 @@
                     <p><strong>\${{ produit.prix|number_format(2, '.', ',') }}</strong></p>
                     
                     <!-- If stock is available, show 'Buy Now' button -->
-                    {% if produit.stock > 0 %}
-                        <button class="btn">Buy Now</button>
-                    {% else %}
-                        <button class="btn" disabled>Out of Stock</button>
-                    {% endif %}
+                 
                 </div>
             {% else %}
                 <p>No products found.</p>
