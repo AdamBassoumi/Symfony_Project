@@ -1,0 +1,128 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Modern and clean font */
+    background-color: #f9fafc;
+    color: #444;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Headings */
+h1, h2 {
+    color: #0074d9; /* Brighter blue for a modern feel */
+    font-family: 'Poppins', sans-serif; /* Stylish font for headings */
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+}
+
+/* Header Section */
+header {
+    background: linear-gradient(135deg, #0074d9, #0056b3); /* Gradient for modern look */
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 4px solid #0056b3;
+}
+
+header img {
+    width: 100px;
+    margin-bottom: 15px;
+    border-radius: 50%; /* Circular image for a friendly look */
+}
+
+header p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* Section Styles */
+section {
+    margin: 30px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    transition: transform 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px); /* Subtle hover effect */
+}
+
+section img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;
+    border-radius: 10px; /* Rounded corners for images */
+}
+
+/* List Styles */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul li {
+    margin: 10px 0;
+    padding-left: 35px;
+    background: url('../images/check-icon.png') no-repeat left center;
+    background-size: 24px;
+    font-size: 1rem;
+}
+
+/* Links */
+a {
+    color: #0074d9;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Call-to-Action */
+.cta {
+    text-align: center;
+    margin: 30px auto;
+}
+
+.cta a {
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #0074d9, #0056b3);
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cta a:hover {
+    background: linear-gradient(135deg, #0056b3, #003d80);
+    transform: translateY(-2px); /* Slight bounce effect on hover */
+}
+
+/* Footer Section */
+footer {
+    background-color: #0056b3;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    border-top: 4px solid #003d80;
+}

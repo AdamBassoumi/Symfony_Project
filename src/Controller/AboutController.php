@@ -11,10 +11,6 @@ class AboutController extends AbstractController
     #[Route('/about', name: 'about_page')]
     public function index(): Response
     {
-        return $this->render('about/index.html.twig', [
-            'title' => 'About',
-            'description' => 'Welcome to the "About" page of our VisualCraft project.',
-
-        ]);
+        return $this->render('about/index.html.twig', []);
     }
 }

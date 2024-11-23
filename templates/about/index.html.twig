@@ -1,81 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome to VisualCraft - The Platform for Digital Creators{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/styles/about.css') }}">
+{% endblock %}
 
 {% block body %}
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        h1, h2 {
-            color: #0056b3;
-        }
-        header {
-            background-color: #0056b3;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        header img {
-            width: 80px;
-            margin-bottom: 10px;
-        }
-        section {
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-        }
-        section img {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            margin: 10px 0;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        ul li {
-            margin: 10px 0;
-            padding-left: 25px;
-            background: url('/images/check-icon.png') no-repeat left center;
-            background-size: 20px;
-        }
-        .cta {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .cta a {
-            text-decoration: none;
-            color: white;
-            background-color: #0056b3;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .cta a:hover {
-            background-color: #003d80;
-        }
-    </style>
-
     <header>
         <img src="{{ asset('assets/images/VisualCraft.jpg') }}" alt="VisualCraft Logo">
-        <h1>{{ title }}</h1>
         <p>{{ description | default('The platform dedicated to creators and buyers of digital products.') }}</p>
     </header>
 
     <section>
         <h2>About VisualCraft</h2>
         <p>VisualCraft is an online platform dedicated to the buying and selling of digital products such as templates, 3D models, and other creative content. Our goal is to provide an accessible, intuitive, and secure solution tailored to the needs of creators and buyers, especially in regions where existing platforms are limited or unavailable.</p>
-          <img src="{{ asset('assets/images/11.jpg') }}" alt="Image representing VisualCraft">
+        <img src="{{ asset('assets/images/11.jpg') }}" alt="Image representing VisualCraft">
     </section>
 
     <section>
@@ -86,7 +24,7 @@
             <li>Access to a diverse catalog: templates, 3D models, and more</li>
             <li>Support for local creators to promote their work</li>
         </ul>
-        <img src="{{ asset('assets/images/22.jpg') }}"
+        <img src="{{ asset('assets/images/22.jpg') }}" alt="Image showcasing features">
     </section>
 
     <section>
@@ -98,7 +36,6 @@
     <section>
         <h2>Contact Us</h2>
         <p>Have questions or want to learn more? Write to us at: <a href="mailto:contact@visualcraft.com">contact@visualcraft.com</a></p>
-     
     </section>
 
     <div class="cta">
