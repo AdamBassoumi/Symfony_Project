@@ -1,133 +1,66 @@
-/* General Styles */
-body {
-    font-family: 'Poppins', sans-serif; /* Clean, modern font */
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Vibrant gradient background */
-    color: #333;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    min-height: 100vh;
-    padding-top: 100px; /* Space below the navbar */
-}
+/* auth.css */
 
-/* Auth Container */
+/* General Styles */
 .auth-container {
     width: 100%;
     max-width: 400px;
-    padding: 30px;
-    background-color: #fff;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
-    border-radius: 12px; /* Softer border radius for a friendly look */
-    animation: fadeIn 1s ease-out; /* Subtle entrance animation */
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
     text-align: center;
-    margin-bottom: 50px; /* Extra space at the bottom */
-}
-
-.auth-container h2 {
-    font-size: 2rem;
-    color: #007bff;
     margin-bottom: 20px;
-    font-weight: 600;
-    letter-spacing: 1px; /* Slight letter spacing for elegance */
 }
 
-/* Form Group */
 .form-group {
-    margin-bottom: 20px;
-    text-align: left;
+    margin-bottom: 15px;
 }
 
 .form-group label {
-    font-size: 0.95rem;
-    color: #555;
-    font-weight: 500;
+    font-weight: bold;
     display: block;
-    margin-bottom: 8px;
-    transition: color 0.3s ease;
 }
 
 .form-group input {
     width: 100%;
-    padding: 12px 15px;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 1rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle inner shadow */
 }
 
-.form-group input:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Glow on focus */
-}
-
-.form-group input:hover {
-    border-color: #0056b3;
-}
-
-/* Button */
 button.btn {
     width: 100%;
-    padding: 12px 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    padding: 10px;
+    background-color: #007bff;
     color: white;
-    background: linear-gradient(135deg, #007bff, #0056b3);
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
 }
 
 button.btn:hover {
-    background: linear-gradient(135deg, #0056b3, #003d80);
-    transform: translateY(-3px); /* Lift effect */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    background-color: #0056b3;
 }
 
-button.btn:active {
-    transform: scale(0.98); /* Subtle press-down effect */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Reset shadow */
-}
-
-/* Links */
 p {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 20px;
+    text-align: center;
+    margin-top: 10px;
 }
 
 a {
     color: #007bff;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
 a:hover {
-    color: #0056b3;
-    text-shadow: 0 2px 4px rgba(0, 123, 255, 0.3); /* Glow effect on hover */
+    text-decoration: underline;
 }
 
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-/* Adjust Navbar Padding */
-.navbar {
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Light divider */
-}
