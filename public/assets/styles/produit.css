@@ -1,73 +1,213 @@
-/* General container styling */
-.container {
+/* Product Detail Page Styling */
+.product-details {
     width: 90%;
-    max-width: 800px;
+    max-width: 900px;
     margin: 30px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
 }
 
-/* Heading styling */
-.container h1 {
+.product-details h1 {
+    font-size: 2.5rem;
+    color: #333;
     text-align: center;
-    font-size: 2rem;
-    color: #4CAF50;
     margin-bottom: 20px;
 }
 
-/* Form container styling */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* Form fields */
-form input[type="text"],
-form input[type="number"],
-form select,
-form textarea {
+.product-details img {
     width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+    max-width: 400px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Form button */
-form button {
-    padding: 12px;
-    font-size: 1rem;
-    background-color: #4CAF50;
+.product-details p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.product-details p strong {
+    color: #333;
+    font-weight: bold;
+}
+
+.product-details .btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    background-color: #28a745;
     color: white;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    text-align: center;
+    margin-top: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.product-details .btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.product-details .btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.product-details .back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    margin-top: 20px;
+    text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
-form button:hover {
-    background-color: #45a049;
+.product-details .back-btn:hover {
+    background-color: #5a6268;
 }
 
-/* Back to list link */
-.container a {
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-    padding: 10px 15px;
-    border: 1px solid #4CAF50;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+/* Edit Product Page Styling */
+.edit-produit-container {
+    width: 90%;
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.container a:hover {
-    background-color: #4CAF50;
+.edit-produit-container h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.edit-produit-container .alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.edit-produit-container .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.edit-produit-container .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.edit-produit-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.edit-produit-container .form-control {
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.edit-produit-container .form-control:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.edit-produit-container .btn {
+    padding: 12px;
+    font-size: 1.2rem;
+    background-color: #007bff;
     color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-produit-container .btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.edit-produit-container .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.edit-produit-container .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.edit-produit-container .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.edit-produit-container .btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Icon Style for Buttons */
+.edit-produit-container .btn .fa,
+.product-details .btn .fa {
+    margin-right: 10px;
+}
+
+.edit-produit-container .delete-btn,
+.product-details .delete-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.edit-produit-container .delete-btn:hover,
+.product-details .delete-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .product-details img {
+        max-width: 100%;
+    }
+
+    .product-details .btn,
+    .edit-produit-container .btn {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .edit-produit-container form {
+        gap: 15px;
+    }
+
+    .edit-produit-container h1 {
+        font-size: 2rem;
+    }
 }

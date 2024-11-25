@@ -1,16 +1,49 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Produit{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('assets/styles/produit.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 {% endblock %}
+
 {% block body %}
-    <h1>Edit Produit</h1>
+    <div class="edit-produit-container">
+        <h1>Edit Produit</h1>
 
-    {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+        {% if app.flashes('error') %}
+            <div class="alert alert-danger">
+                {% for message in app.flashes('error') %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if app.flashes('success') %}
+            <div class="alert alert-success">
+                {% for message in app.flashes('success') %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+        {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.prix) }}
+            {{ form_row(form.fichier) }}
+            {{ form_row(form.category) }}
+            <button class="btn btn-primary">
+                <i class="fa fa-save"></i> Update Product
+            </button>
+        {{ form_end(form) }}
 
-    {{ include('produit/_delete_form.html.twig') }}
+        {{ include('produit/_delete_form.html.twig') }}
+
+        <div class="mt-3">
+            <a href="{{ path('myshop') }}" class="btn btn-secondary">
+                <i class="fa fa-arrow-left"></i> Back to list
+            </a>
+        </div>
+    </div>
 {% endblock %}

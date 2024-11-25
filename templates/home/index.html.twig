@@ -5,98 +5,56 @@
 {% block stylesheets %}
     {{ parent() }}  <!-- Include styles from base.html.twig -->
     <link rel="stylesheet" href="{{ asset('assets/styles/homepage.css') }}">  <!-- Homepage specific CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-    <div class="hero-section">
-        <h1>Welcome to "VisualCraft"</h1>
-        <p>Browse our collection of products and enjoy shopping!</p>
-        <a href="#" class="btn">Start Shopping</a>
+    <div class="home"> <!-- Apply 'home' class to scope the styles to this page -->
+
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1>Welcome to "VisualCraft"</h1>
+            <p>Browse our collection of products and enjoy shopping!</p>
+            <a href="#" class="btn">Start Shopping</a>
+        </div>
+
+        <!-- Featured Products Section -->
+        <section class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="product-grid">
+                {% for produit in produits %}
+                    <div class="product-card">
+                        <!-- Product Image (if available) -->
+                        {% if produit.fichier %}
+                            <img src="{{ asset('assets/Product_Images/' ~ produit.fichier) }}" alt="{{ produit.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200" alt="{{ produit.name }}">
+                        {% endif %}
+
+                        <h3>{{ produit.name }}</h3>
+                        <p>{{ produit.description }}</p>
+                        <p><strong>\${{ produit.prix|number_format(2, '.', ',') }}</strong></p>
+
+                        <!-- View Product button with icon -->
+                        <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-primary">
+                            <i class="fa fa-eye"></i> View Product
+                        </a>
+                        
+                        <!-- Buy Now button with authentication check -->
+                        {% if app.user %}
+                            <a href="#" class="btn btn-success">
+                                <i class="fa fa-cart-shopping"></i> Buy Now
+                            </a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="btn btn-warning">
+                                <i class="fa fa-cart-shopping"></i> Login to Buy
+                            </a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <p>No products found.</p>
+                {% endfor %}
+            </div>
+        </section>
     </div>
-
-    <section class="featured-products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 1">
-                <h3>Product 1</h3>
-                <p>$19.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-            
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 2">
-                <h3>Product 2</h3>
-                <p>$24.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 3">
-                <h3>Product 3</h3>
-                <p>$34.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-              <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 4">
-                <h3>Product 4</h3>
-                <p>$44.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-
-
-<div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 5">
-                <h3>Product 5</h3>
-                <p>$9.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-            
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 6">
-                <h3>Product 6</h3>
-                <p>$35.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-            <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 7">
-                <h3>Product 7</h3>
-                <p>$17.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-              <div class="product-card">
-                <img src="https://via.placeholder.com/300x200" alt="Product 8">
-                <h3>Product 8</h3>
-                <p>$12.99</p>
-                <button class="btn">Buy Now</button>
-            </div>
-
-
-        </div>
-    </section>
-
-    <section class="featured-products">
-        <h2>Featured Products</h2>
-        <div class="product-grid">
-            {% for produit in produits %}
-                <div class="product-card">
-                    <!-- Product Image (if available) -->
-                    {% if produit.fichier %}
-                        <img src="{{ asset('assets/Product_Images/' ~ produit.fichier) }}" alt="{{ produit.name }}">
-                    {% else %}
-                        <img src="https://via.placeholder.com/300x200" alt="{{ produit.name }}">
-                    {% endif %}
-                    
-                    <h3>{{ produit.name }}</h3>
-                    <p>{{ produit.description }}</p>
-                    <p><strong>\${{ produit.prix|number_format(2, '.', ',') }}</strong></p>
-                    
-                    <!-- If stock is available, show 'Buy Now' button -->
-                </div>
-            {% else %}
-                <p>No products found.</p>
-            {% endfor %}
-        </div>
-    </section>
-
-
 {% endblock %}

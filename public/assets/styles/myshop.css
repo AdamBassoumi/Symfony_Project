@@ -35,12 +35,14 @@
     padding: 12px 20px;
     font-size: 1.1rem;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     margin-bottom: 30px;
+    width: 100%;  /* Full width of parent container */
 }
 
 .myshop-container .btn:hover {
     background-color: #0056b3;
+    transform: translateY(-2px); /* Slight lift effect for interaction */
 }
 
 /* Product list heading styling */
@@ -146,3 +148,51 @@
         padding: 12px;
     }
 }
+
+/* Styling for edit and delete buttons */
+.myshop-container .btn {
+    display: block; /* Change from inline-block to block */
+    text-decoration: none;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Full width of parent container */
+    text-align: center; /* Ensures text is centered */
+}
+
+/* Edit button styling */
+.myshop-container .btn-warning {
+    background-color: #ffc107; /* Bright yellow for the edit button */
+    border: 1px solid #e0a800; /* Slight darker border for better contrast */
+}
+
+.myshop-container .btn-warning:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+    transform: translateY(-2px); /* Slight lift effect for interaction */
+}
+
+/* Delete button styling */
+.myshop-container .btn-danger {
+    background-color: #dc3545; /* Red for delete button */
+    border: 1px solid #c82333; /* Darker red border */
+}
+
+.myshop-container .btn-danger:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+/* General button hover effects for better user experience */
+.myshop-container .btn:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow on hover */
+}
+
+/* Optional: A subtle focus effect for accessibility */
+.myshop-container .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Light blue outline */
+}
+
