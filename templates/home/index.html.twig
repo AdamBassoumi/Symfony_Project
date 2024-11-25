@@ -46,7 +46,7 @@
                                 <i class="fa fa-cart-shopping"></i> Buy Now
                             </a>
                         {% else %}
-                            <a href="{{ path('app_login') }}" class="btn btn-warning">
+                            <a href="{{ path('login') }}" class="btn btn-warning">
                                 <i class="fa fa-cart-shopping"></i> Login to Buy
                             </a>
                         {% endif %}
@@ -57,4 +57,12 @@
             </div>
         </section>
     </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <p>You are an Admin!</p>
+    {% elseif is_granted('ROLE_USER') %}
+        <p>You are a Regular User!</p>
+    {% else %}
+        <p>You have no specific role assigned.</p>
+    {% endif %}
 {% endblock %}
