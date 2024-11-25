@@ -1,14 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Produit{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('assets/styles/produit.css') }}">
 {% endblock %}
+
 {% block body %}
     <h1>Create new Produit</h1>
 
-    {{ include('produit/_form.html.twig') }}
+    {# Flash messages display section #}
+    {% if app.flashes('error') %}
+        <div class="alert alert-danger">
+            {% for message in app.flashes('error') %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if app.flashes('success') %}
+        <div class="alert alert-success">
+            {% for message in app.flashes('success') %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+    {# Product form #}
+    {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.prix) }}
+        {{ form_row(form.fichier) }}  {# This is the file upload field #}
+        {{ form_row(form.category) }}
+        <button class="btn btn-primary">Save</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_produit_index') }}">Back to list</a>
 {% endblock %}

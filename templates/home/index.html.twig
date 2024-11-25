@@ -81,7 +81,7 @@
                 <div class="product-card">
                     <!-- Product Image (if available) -->
                     {% if produit.fichier %}
-                        <img src="{{ asset('uploads/' ~ produit.fichier) }}" alt="{{ produit.name }}">
+                        <img src="{{ asset('assets/Product_Images/' ~ produit.fichier) }}" alt="{{ produit.name }}">
                     {% else %}
                         <img src="https://via.placeholder.com/300x200" alt="{{ produit.name }}">
                     {% endif %}
