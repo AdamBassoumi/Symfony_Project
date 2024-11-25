@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: "produit")]
@@ -41,6 +43,9 @@ class Produit
 
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Commentaire::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $commentaires;
+
+    // Temporary property for the uploaded file (used in the form)
+    private $file;
 
     // Getters and setters for all properties
 
@@ -87,7 +92,7 @@ class Produit
         return $this->fichier;
     }
 
-    public function setFichier(string $fichier): self
+    public function setFichier(?string $fichier): self
     {
         $this->fichier = $fichier;
         return $this;
@@ -134,6 +139,25 @@ class Produit
     public function setCommentaires($commentaires): self
     {
         $this->commentaires = $commentaires;
+        return $this;
+    }
+
+    // Getter and setter for the uploaded file (form field)
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file = null): self
+    {
+        $this->file = $file;
+
+        // If a file is set, update the file upload date
+        if ($file) {
+            // Automatically set the date of creation when a new file is uploaded
+            $this->dateCreation = (new \DateTimeImmutable())->format('Y-m-d H:i:s');
+        }
+
         return $this;
     }
 }

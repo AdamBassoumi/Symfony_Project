@@ -1,0 +1,152 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    padding-top: 80px; /* Make space for the fixed navbar */
+}
+
+
+/* Create Shop Page Container */
+.create_shop-container {
+    width: 90%; /* Keeps it responsive */
+    max-width: 800px; /* Optional max-width for larger screens */
+    min-height: 83vh; /* Takes up at least 80% of the viewport height */
+    margin: 0 auto;
+    padding: 3rem; /* Increase padding to add more space around content */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the content */
+}
+
+.create_shop-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #007bff;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.create_shop-card {
+    padding: 3rem 2rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.create_shop-card-title {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Form Styling */
+.create_shop-form-group {
+    margin-bottom: 2rem;
+}
+
+.create_shop-form-label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.create_shop-form-control {
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.create_shop-form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
+.create_shop-btn {
+    padding: 1rem 2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.create_shop-btn:hover {
+    background-color: #218838;
+}
+
+.create_shop-back-button {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.create_shop-btn-secondary {
+    padding: 1rem 2rem;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.create_shop-btn-secondary:hover {
+    background-color: #0056b3;
+}
+
+.create_shop-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .create_shop-container {
+        padding: 1rem;
+    }
+
+    .create_shop-title {
+        font-size: 2rem;
+    }
+
+    .create_shop-card {
+        padding: 2rem 1rem;
+    }
+
+    .create_shop-form-control {
+        font-size: 1rem;
+    }
+
+    .create_shop-btn {
+        padding: 0.8rem 1.5rem;
+    }
+
+    .create_shop-btn-secondary {
+        padding: 0.8rem 1.5rem;
+    }
+}

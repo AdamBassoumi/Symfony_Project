@@ -2,6 +2,11 @@
 
 {% block title %}S'inscrire{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}  <!-- Include styles from base.html.twig -->
+    <link rel="stylesheet" href="{{ asset('assets/styles/auth.css') }}">  <!-- Homepage specific CSS -->
+{% endblock %}
+
 {% block body %}
     <div class="auth-container">
         <h2>S'inscrire</h2>

@@ -1,6 +1,10 @@
 
 ###> symfony/framework-bundle ###
 .env
+
+public/assets/Product_Images/*
+!public/assets/Product_Images/
+
 /.env.local
 /.env.local.php
 /.env.*.local

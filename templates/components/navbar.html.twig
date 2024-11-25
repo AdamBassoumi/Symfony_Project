@@ -1,36 +1,39 @@
-<nav class="navbar">
-    <div class="navbar-container">
-        <!-- Logo -->
-        <a href="{{ path('home') }}" class="navbar-brand">
-<img src="{{ asset('assets/images/logo.png') }}" alt="Shop Logo" class="logo">
-        </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <link rel="stylesheet" href="{{ asset('assets/styles/navbar.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{{ path('home') }}" class="navbar-brand">
+                <img src="{{ asset('assets/images/logo.png') }}" alt="Shop Logo" class="logo"> Shop Name
+            </a>
 
-        <!-- Navbar Links -->
-        <ul class="navbar-links">
-            <li><a href="{{ path('home') }}" class="navbar-link">Home</a></li>
-             <li><a href="{{ path('about_page') }}">About</a></li>
-
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <!-- User is logged in, show logout -->
-                <li><a href="{{ path('logout') }}" class="navbar-link">Logout</a></li>
-
-                {% if app.user.shop %}
-                    <!-- User has a shop, show link to /myshop with shop name -->
-                    <li><a href="{{ path('myshop') }}" class="navbar-link">{{ app.user.shop.nom }}</a></li>
+            <ul class="navbar-links">
+                <li><a href="{{ path('home') }}" class="navbar-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ path('about_page') }}" class="navbar-link"><i class="fas fa-info-circle"></i> About</a></li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ path('logout') }}" class="navbar-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    {% if app.user.shop %}
+                        <li><a href="{{ path('myshop') }}" class="navbar-link"><i class="fas fa-store"></i> {{ app.user.shop.nom }}</a></li>
+                    {% else %}
+                        <li><a href="{{ path('create_shop') }}" class="navbar-link"><i class="fas fa-plus-circle"></i> Create Shop</a></li>
+                    {% endif %}
                 {% else %}
-                    <!-- User doesn't have a shop, show link to create a shop -->
-                    <li><a href="{{ path('create_shop') }}" class="navbar-link">Create Shop</a></li>
+                    <li><a href="{{ path('login') }}" class="navbar-link login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="{{ path('signup') }}" class="navbar-link signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a></li>
                 {% endif %}
-            {% else %}
-                <!-- User is not logged in, show login/signup -->
-                <li><a href="{{ path('login') }}" class="navbar-link login-btn">Login</a></li>
-                <li><a href="{{ path('signup') }}" class="navbar-link signup-btn">Sign Up</a></li>
-            {% endif %}
-        </ul>
+            </ul>
 
-        <!-- Mobile Menu Icon (hamburger) -->
-        <div class="navbar-toggle">
-            <span class="navbar-toggle-icon"></span>
+            <div class="navbar-toggle">
+                <span class="navbar-toggle-icon"></span>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</body>
+</html>
