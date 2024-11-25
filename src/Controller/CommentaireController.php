@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Produit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,24 +26,27 @@ final class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_commentaire_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'create_commentaire', methods: ['POST'])]
+    public function createCommentaire(Produit $produit, Request $request, EntityManagerInterface $entityManager): Response
     {
+        // Get the data from the form
+        $text = $request->request->get('text');
+        $note = (int) $request->request->get('note');
+
+        // Create a new Commentaire entity and populate it with the form data
         $commentaire = new Commentaire();
-        $form = $this->createForm(CommentaireType::class, $commentaire);
-        $form->handleRequest($request);
+        $commentaire->setText($text)
+            ->setNote($note)
+            ->setProduit($produit)
+            ->setDate((new \DateTime())->format('Y-m-d H:i:s'))
+            ->setUname($this->getUser() ? $this->getUser()->getEmail() : 'Anonymous'); // Use 'uname' from the user (email)
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($commentaire);
-            $entityManager->flush();
+        // Persist the new comment to the database
+        $entityManager->persist($commentaire);
+        $entityManager->flush();
 
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('commentaire/new.html.twig', [
-            'commentaire' => $commentaire,
-            'form' => $form,
-        ]);
+        // Redirect back to the product detail page (show the product)
+        return $this->redirectToRoute('app_produit_show', ['id' => $produit->getId()]);
     }
 
     #[Route('/{id}', name: 'app_commentaire_show', methods: ['GET'])]

@@ -33,7 +33,7 @@
 
                         <h3>{{ produit.name }}</h3>
                         <p>{{ produit.description }}</p>
-                        <p><strong>\${{ produit.prix|number_format(2, '.', ',') }}</strong></p>
+                        <p><strong>${{ produit.prix|number_format(2, '.', ',') }}</strong></p>
 
                         <!-- View Product button with icon -->
                         <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-primary">
