@@ -18,11 +18,6 @@ class UtilisateurType extends AbstractType
             ->add('prenom')
             ->add('email')
             ->add('mdp')
-            ->add('hasShop')
-            ->add('shop', EntityType::class, [
-                'class' => Shop::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 

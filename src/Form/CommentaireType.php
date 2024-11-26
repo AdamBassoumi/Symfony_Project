@@ -18,10 +18,6 @@ class CommentaireType extends AbstractType
             ->add('text')
             ->add('date')
             ->add('note')
-            ->add('produit', EntityType::class, [
-                'class' => Produit::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 

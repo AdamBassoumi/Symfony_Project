@@ -1,0 +1,158 @@
+/* Page Wrapper */
+.produit-page-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.produit-page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Flash Message Styles */
+.produit-flash-message {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.produit-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.produit-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.produit-flash-message p {
+    margin: 0;
+}
+
+/* Form Card */
+.produit-form-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.produit-form-group {
+    margin-bottom: 20px;
+}
+
+.produit-form-group label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.produit-form-group input,
+.produit-form-group select,
+.produit-form-group textarea {
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.produit-form-group input:focus,
+.produit-form-group select:focus,
+.produit-form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Submit Button */
+.produit-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.produit-submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.produit-submit-btn i {
+    margin-right: 8px;
+}
+
+/* Back Button */
+.produit-back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.produit-back-btn:hover {
+    color: #0056b3;
+}
+
+.produit-back-btn i {
+    margin-right: 8px;
+}
+
+/* Card and Back Button Styling */
+.produit-back-btn {
+    text-align: center;
+    padding: 10px 15px;
+    background-color: #f0f2f5;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+}
+
+.produit-back-btn:hover {
+    background-color: #e6e9ed;
+}
+
+/* Input Focus */
+.produit-form-group input:focus,
+.produit-form-group select:focus,
+.produit-form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .produit-page-wrapper {
+        padding: 20px;
+    }
+
+    .produit-form-group {
+        margin-bottom: 15px;
+    }
+
+    .produit-submit-btn {
+        font-size: 1.1rem;
+    }
+}

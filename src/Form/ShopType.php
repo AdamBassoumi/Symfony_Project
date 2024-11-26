@@ -19,24 +19,24 @@ class ShopType extends AbstractType
             'label' => 'Shop Name',
             'attr' => [
                 'placeholder' => 'Enter your shop name',
-                'class' => 'form-control', // Bootstrap class for styling
+                'class' => 'form-control',
             ],
-            'required' => true, // Validation rule (optional)
-            'label_attr' => ['class' => 'form-label'], // Optional: Bootstrap label class
+            'required' => true,
+            'label_attr' => ['class' => 'form-label'],
         ])
         ->add('description', TextareaType::class, [
             'label' => 'Shop Description',
             'attr' => [
                 'placeholder' => 'Describe your shop',
-                'class' => 'form-control', // Bootstrap class for styling
+                'class' => 'form-control',
             ],
             'required' => false, // Optional field
-            'label_attr' => ['class' => 'form-label'], // Optional: Bootstrap label class
+            'label_attr' => ['class' => 'form-label'],
         ])
         ->add('submit', SubmitType::class, [
             'label' => 'Create Shop',
             'attr' => [
-                'class' => 'btn btn-primary', // Bootstrap button class
+                'class' => 'btn btn-primary',
             ],
         ]);
     }
@@ -44,7 +44,7 @@ class ShopType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Shop::class, // Maps to the Shop entity
+            'data_class' => Shop::class,
         ]);
     }
 }

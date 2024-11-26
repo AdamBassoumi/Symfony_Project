@@ -22,7 +22,7 @@ class ShopController extends AbstractController
 
         // Cast the user to Utilisateur if it's an instance of Utilisateur
         if (!$user instanceof Utilisateur) {
-            return $this->redirectToRoute('app_login');  // Redirect to login page if the user is not an instance of Utilisateur
+            return $this->redirectToRoute('login');  // Redirect to login page if the user is not an instance of Utilisateur
         }
 
         // Check if the user has a shop

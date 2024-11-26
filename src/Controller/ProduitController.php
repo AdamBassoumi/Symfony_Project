@@ -28,7 +28,7 @@ final class ProduitController extends AbstractController
         ]);
     }
     
-    #[Route('/{id}', name: 'app_produit_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_produit_show', methods: ['GET'])]
     public function show(Produit $produit): Response
     {
         return $this->render('produit/show.html.twig', [
@@ -39,25 +39,22 @@ final class ProduitController extends AbstractController
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        // Get the current authenticated user
         $user = $this->getUser();
         
         // Ensure that the user is authenticated and is an instance of Utilisateur
         if (!$user instanceof Utilisateur) {
-            return $this->redirectToRoute('app_login');  // Redirect to login if the user is not authenticated
+            return $this->redirectToRoute('login'); 
         }
         
-        // Create a new Produit entity
         $produit = new Produit();
         
         // Associate the product with the user's shop
         if ($user->getShop()) {
-            $produit->setShop($user->getShop());  // Set the shop for the product
+            $produit->setShop($user->getShop());
         } else {
-            return $this->redirectToRoute('create_shop');  // Redirect to create shop if no shop exists
+            return $this->redirectToRoute('create_shop'); 
         }
         
-        // Set the current date for the product creation
         $produit->setDateCreation((new \DateTime())->format('Y-m-d'));
     
         // Create the form to collect product data
@@ -93,16 +90,13 @@ final class ProduitController extends AbstractController
                     return $this->redirectToRoute('app_produit_new');
                 }
             } else {
-                // If no file is uploaded
                 $this->addFlash('error', 'No file uploaded.');
                 return $this->redirectToRoute('app_produit_new');
             }
     
-            // Persist the new product entity to the database
             $entityManager->persist($produit);
             $entityManager->flush();
     
-            // Redirect to the shop's product listing page or product details page
             return $this->redirectToRoute('myshop');
         }
     
@@ -110,11 +104,10 @@ final class ProduitController extends AbstractController
         if ($form->isSubmitted() && !$form->isValid()) {
             $errors = $form->getErrors(true, false);
             foreach ($errors as $error) {
-                dump($error->getMessage()); // Log form errors
+                dump($error->getMessage());
             }
         }
     
-        // Render the form to create the product
         return $this->render('produit/new.html.twig', [
             'produit' => $produit,
             'form' => $form->createView(),
@@ -124,13 +117,22 @@ final class ProduitController extends AbstractController
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        // Check if the authenticated user is either the owner of the shop or an admin
+        if (!$this->canEditOrDelete($user, $produit)) {
+            // If the user is not allowed to edit, redirect them or show an error
+            $this->addFlash('error', 'You do not have permission to edit this product.');
+            return $this->redirectToRoute('home');
+        }
+
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('myshop', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('produit/edit.html.twig', [
@@ -142,11 +144,36 @@ final class ProduitController extends AbstractController
     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        // Check if the authenticated user is either the owner of the shop or an admin
+        if (!$this->canEditOrDelete($user, $produit)) {
+            // If the user is not allowed to delete, redirect them or show an error
+            $this->addFlash('error', 'You do not have permission to delete this product.');
+            return $this->redirectToRoute('home');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('myshop', [], Response::HTTP_SEE_OTHER);
+    }
+
+    // Helper method to check if the user can edit or delete the product
+    private function canEditOrDelete(Utilisateur $user, Produit $produit): bool
+    {
+        // Check if the user is an ADMIN
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return true;
+        }
+
+        // Check if the product's shop belongs to the current authenticated user
+        if ($produit->getShop() && $produit->getShop()->getUtilisateur() === $user) {
+            return true;
+        }
+
+        return false; // The user cannot edit or delete the product
     }
 }
