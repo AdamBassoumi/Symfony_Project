@@ -27,7 +27,6 @@ class SecurityController extends AbstractController
         $this->tokenStorage = $tokenStorage;
     }
 
-    // Signup route
     #[Route('/signup', name: 'signup')]
     public function signup(Request $request, UtilisateurRepository $userRepository): Response
     {
@@ -54,13 +53,11 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    // Login route (just rendering the login form)
     #[Route('/login', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // Check if the user is already logged in
         if ($this->getUser()) {
-            // If logged in, redirect to the home page (avoid login loop)
             return $this->redirectToRoute('home');
         }
 
@@ -74,7 +71,6 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    // Logout route (handled automatically by Symfony)
     #[Route('/logout', name: 'logout')]
     public function logout(): void
     {

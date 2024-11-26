@@ -43,15 +43,13 @@ class ShopController extends AbstractController
     #[Route('/create_shop', name: 'create_shop')]
     public function createShop(Request $request, EntityManagerInterface $em): Response
     {
-        // Get the current authenticated user
         $user = $this->getUser();
 
         // Cast the user to Utilisateur if it's an instance of Utilisateur
         if (!$user instanceof Utilisateur) {
-            return $this->redirectToRoute('app_login');  // Redirect to login page if the user is not an instance of Utilisateur
+            return $this->redirectToRoute('app_login');
         }
 
-        // If the user already has a shop, redirect to the 'myshop' page
         if ($user->getShop()) {
             return $this->redirectToRoute('myshop');
         }
@@ -60,7 +58,6 @@ class ShopController extends AbstractController
         $shop = new Shop();
         $shop->setUtilisateur($user); 
 
-         // Automatically set the current date for dateCreation
          $shop->setDateCreation((new \DateTime())->format('Y-m-d'));  // Set the current date   
 
         // Create a form to collect shop data
@@ -74,11 +71,9 @@ class ShopController extends AbstractController
             $em->persist($shop);
             $em->flush();
 
-            // Redirect to the newly created shop's page
             return $this->redirectToRoute('myshop');
         }
 
-        // Render the form for creating the shop
         return $this->render('shop/new.html.twig', [
             'shop' => $shop,
             'form' => $form->createView(),

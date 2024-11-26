@@ -29,23 +29,23 @@ final class CommentaireController extends AbstractController
     #[Route('/new/{id}', name: 'create_commentaire', methods: ['POST'])]
     public function createCommentaire(Produit $produit, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Get the data from the form
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('login');
+        }
+    
         $text = $request->request->get('text');
         $note = (int) $request->request->get('note');
-
-        // Create a new Commentaire entity and populate it with the form data
+    
         $commentaire = new Commentaire();
         $commentaire->setText($text)
             ->setNote($note)
             ->setProduit($produit)
             ->setDate((new \DateTime())->format('Y-m-d H:i:s'))
-            ->setUname($this->getUser() ? $this->getUser()->getEmail() : 'Anonymous'); // Use 'uname' from the user (email)
-
-        // Persist the new comment to the database
+            ->setUname($this->getUser()->getEmail()); // Use 'uname' from the user (email)
+    
         $entityManager->persist($commentaire);
         $entityManager->flush();
-
-        // Redirect back to the product detail page (show the product)
+    
         return $this->redirectToRoute('app_produit_show', ['id' => $produit->getId()]);
     }
 
@@ -60,29 +60,38 @@ final class CommentaireController extends AbstractController
     #[Route('/{id}/edit', name: 'app_commentaire_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager): Response
     {
+        // Check if the logged-in user is the owner of the comment
+        if ($commentaire->getUname() !== $this->getUser()->getEmail()) {
+            throw $this->createAccessDeniedException('You are not authorized to edit this comment.');
+        }
+    
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
             return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('commentaire/edit.html.twig', [
             'commentaire' => $commentaire,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}', name: 'app_commentaire_delete', methods: ['POST'])]
     public function delete(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->getPayload()->getString('_token'))) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('You do not have permission to delete this comment.');
+        }
+    
+        // Check CSRF token validity
+        if ($this->isCsrfTokenValid('delete'.$commentaire->getId(), $request->request->get('_token'))) {
             $entityManager->remove($commentaire);
             $entityManager->flush();
         }
-
+    
         return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
     }
 }
