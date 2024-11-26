@@ -12,7 +12,6 @@
     <div class="produit-page-wrapper">
         <h1 class="produit-page-title"><i class="fas fa-plus-circle"></i> Create New Produit</h1>
 
-        {# Flash messages display section #}
         {% if app.flashes('error') %}
             <div class="produit-flash-message produit-error">
                 {% for message in app.flashes('error') %}
@@ -28,37 +27,73 @@
             </div>
         {% endif %}
 
-        {# Product form #}
         <div class="produit-form-card">
+            <!-- Image preview container -->
+            <div class="produit-form-group" id="image-preview-container" style="display:none; margin-bottom: 15px; text-align: center;">
+                <img id="image-preview" src="" alt="Image Preview" />
+            </div>
+
             {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
+                
+                <!-- Name Field -->
                 <div class="produit-form-group">
                     {{ form_row(form.name) }}
                 </div>
 
+                <!-- Description Field -->
                 <div class="produit-form-group">
                     {{ form_row(form.description) }}
                 </div>
 
+                <!-- Price Field -->
                 <div class="produit-form-group">
                     {{ form_row(form.prix) }}
                 </div>
 
+                <!-- Image Upload Field -->
                 <div class="produit-form-group">
-                    {{ form_row(form.fichier) }}  {# This is the file upload field #}
+                    <label for="produit_fichier">Image</label>
+                    {{ form_row(form.fichier) }} <!-- This will render the file input properly -->
                 </div>
 
+                <!-- Category Field -->
                 <div class="produit-form-group">
                     {{ form_row(form.category) }}
                 </div>
 
+                <!-- Submit Button -->
                 <button type="submit" class="produit-submit-btn">
                     <i class="fas fa-save"></i> Save
                 </button>
             {{ form_end(form) }}
         </div>
 
-        <a href="{{ path('app_produit_index') }}" class="produit-back-btn">
+        <a href="{{ path('myshop') }}" class="produit-back-btn">
             <i class="fas fa-arrow-left"></i> Back to list
         </a>
     </div>
+
+    {% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // JavaScript to preview the image before the form is submitted
+            document.getElementById('produit_fichier').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Show the preview of the selected image
+                        const imagePreview = document.getElementById('image-preview');
+                        const imagePreviewContainer = document.getElementById('image-preview-container');
+                        imagePreview.src = e.target.result;
+                        imagePreviewContainer.style.display = 'block'; // Show the container
+                    };
+                    
+                    reader.readAsDataURL(file); // Convert the file to a data URL
+                }
+            });
+        });
+    </script>
+    {% endblock %}
 {% endblock %}

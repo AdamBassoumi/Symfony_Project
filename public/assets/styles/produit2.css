@@ -156,3 +156,17 @@
         font-size: 1.1rem;
     }
 }
+#image-preview-container {
+    display: none; /* Initially hidden */
+    margin-bottom: 15px;
+    text-align: center; /* Center the image inside the container */
+    display: block; /* Show it when the image is available */
+}
+
+#image-preview {
+    width: 500px; /* Set the width to 300px */
+    height: auto;  /* Maintain aspect ratio */
+    border: 2px solid #ccc; /* Optional: add a border around the image */
+    border-radius: 8px; /* Optional: round the corners */
+    padding: 5px; /* Optional: add some padding inside the border */
+}

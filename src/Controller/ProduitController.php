@@ -115,7 +115,7 @@ final class ProduitController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $user = $this->getUser();
         
@@ -125,19 +125,57 @@ final class ProduitController extends AbstractController
             $this->addFlash('error', 'You do not have permission to edit this product.');
             return $this->redirectToRoute('home');
         }
-
+    
+        // Save the current image (if any) before the form is submitted, to prevent it from being lost
+        $currentImage = $produit->getFichier();
+    
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('fichier')->getData();  // Get the uploaded file
+    
+            if ($file) {
+                // If a new file was uploaded, handle the upload process
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename); // Slugify the original filename
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension(); // Add unique identifier to filename
+                
+                try {
+                    // Move the uploaded file to the specified directory
+                    $file->move(
+                        $this->getParameter('product_images_directory'), // Path defined in services.yaml
+                        $newFilename
+                    );
+                    
+                    // Set the filename of the uploaded file in the entity
+                    $produit->setFichier($newFilename);
+    
+                    // Delete the old image if it exists (important to avoid orphaned files)
+                    if ($currentImage) {
+                        $oldImagePath = $this->getParameter('product_images_directory') . '/' . $currentImage;
+                        if (file_exists($oldImagePath)) {
+                            unlink($oldImagePath);  // Delete the old image file
+                        }
+                    }
+                } catch (FileException $e) {
+                    // Handle file upload error
+                    $this->addFlash('error', 'There was an issue uploading the image.');
+                    return $this->redirectToRoute('app_produit_edit', ['id' => $produit->getId()]);
+                }
+            } else {
+                // If no new file is uploaded, keep the current image
+                $produit->setFichier($currentImage);
+            }
+    
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('myshop', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('produit/edit.html.twig', [
             'produit' => $produit,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
