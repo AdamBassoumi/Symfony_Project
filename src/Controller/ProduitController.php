@@ -7,6 +7,7 @@ use App\Entity\Utilisateur;
 use App\Form\ProduitType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,10 +30,12 @@ final class ProduitController extends AbstractController
     }
     
     #[Route('/show/{id}', name: 'app_produit_show', methods: ['GET'])]
-    public function show(Produit $produit): Response
+    public function show(Produit $produit, Security $security): Response
     {
+        $user = $security->getUser();
         return $this->render('produit/show.html.twig', [
             'produit' => $produit,
+            'authenticatedUser' => $user,
         ]);
     }
 
@@ -212,6 +215,6 @@ final class ProduitController extends AbstractController
             return true;
         }
 
-        return false; // The user cannot edit or delete the product
+        return false;
     }
 }

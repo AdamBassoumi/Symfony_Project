@@ -30,8 +30,7 @@
                 <td>{{ commentaire.date }}</td>
                 <td>{{ commentaire.note }}</td>
                 <td>
-                    <a href="{{ path('app_commentaire_show', {'id': commentaire.id}) }}">show</a>
-                    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
+                    <a href="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}">delete</a>
                 </td>
             </tr>
         {% else %}
@@ -41,6 +40,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_commentaire_new') }}">Create new</a>
 {% endblock %}

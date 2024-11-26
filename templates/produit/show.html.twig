@@ -17,6 +17,29 @@
         <p><strong>Price:</strong> ${{ produit.prix|number_format(2, '.', ',') }}</p>
         <p><strong>Created on:</strong> {{ produit.dateCreation|date('Y-m-d') }}</p>
 
+        <!-- Ratings Suggestion -->
+            <h2>Customer Ratings Overview</h2>
+            {% if produit.commentaires|length > 0 %}
+                {% set totalRating = 0 %}
+                {% for commentaire in produit.commentaires %}
+                    {% set totalRating = totalRating + commentaire.note %}
+                {% endfor %}
+                {% set averageRating = totalRating / produit.commentaires|length %}
+                <p><strong>Average Rating:</strong> {{ averageRating|round(2) }} / 5</p>
+                <p>
+                    <strong>Suggestions:</strong>
+                    {% if averageRating >= 4 %}
+                        Highly recommended! Customers love this product.
+                    {% elseif averageRating >= 3 %}
+                        Customers find this product good, but there might be room for improvement.
+                    {% else %}
+                        Consider customer feedback to enhance the product.
+                    {% endif %}
+                </p>
+            {% else %}
+                <p>No ratings yet. Be the first to rate this product!</p>
+            {% endif %}
+
         <!-- Add Buy Now button or additional details -->
         <a href="#" class="btn btn-success">
             <i class="fa fa-shopping-cart"></i> Buy Now
@@ -33,10 +56,57 @@
         {% if produit.commentaires|length > 0 %}
             <div class="comments-list">
                 {% for commentaire in produit.commentaires %}
-                    <div class="comment">
-                        <p><strong>{{ commentaire.uname }}</strong> ({{ commentaire.date|date('Y-m-d') }}):</p>
-                        <p>{{ commentaire.text }}</p>
-                        <p><strong>Rating:</strong> {{ commentaire.note }} / 5</p>
+                    <div class="comment" id="comment-{{ commentaire.id }}">
+                        <!-- Comment Display -->
+                        <div class="comment-display">
+                            <p><strong>{{ commentaire.uname }}</strong> ({{ commentaire.date|date('Y-m-d') }}):</p>
+                            <p>{{ commentaire.text }}</p>
+                            <p><strong>Rating:</strong> {{ commentaire.note }} / 5</p>
+                            <div class="rating">
+                                {% for i in 1..commentaire.note %}
+                                    <i class="fa fa-star"></i>
+                                {% endfor %}
+                                {% for i in (commentaire.note+1)..5 %}
+                                    <i class="fa fa-star-o"></i>
+                                {% endfor %}
+                            </div>
+                            {% if authenticatedUser and authenticatedUser.email == commentaire.uname%}
+                                <button 
+                                    class="btn btn-sm btn-primary edit-comment-btn" 
+                                    onclick="toggleEditForm({{ commentaire.id }})">
+                                    Edit
+                                </button>
+                            {% endif %}
+                        </div>
+
+                        <!-- Edit Form (Initially hidden) -->
+                        <div class="comment-edit-form" id="edit-form-{{ commentaire.id }}" style="display: none;">
+                            <form method="POST" action="{{ path('edit_commentairee', {'id': commentaire.id}) }}">
+                                <div class="form-group">
+                                    <label for="text-{{ commentaire.id }}">Edit Comment:</label>
+                                    <textarea id="text-{{ commentaire.id }}" name="text" required>{{ commentaire.text }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="note-{{ commentaire.id }}">Edit Rating:</label>
+                                    <select id="note-{{ commentaire.id }}" name="note" required>
+                                        <option value="1" {% if commentaire.note == 1 %}selected{% endif %}>1 Star</option>
+                                        <option value="2" {% if commentaire.note == 2 %}selected{% endif %}>2 Stars</option>
+                                        <option value="3" {% if commentaire.note == 3 %}selected{% endif %}>3 Stars</option>
+                                        <option value="4" {% if commentaire.note == 4 %}selected{% endif %}>4 Stars</option>
+                                        <option value="5" {% if commentaire.note == 5 %}selected{% endif %}>5 Stars</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-secondary" 
+                                        onclick="toggleEditForm({{ commentaire.id }})">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -70,7 +140,7 @@
         </div>
     </div>
 
-    <!-- JavaScript to toggle visibility of the comment form -->
+    <!-- JavaScript for toggling forms -->
     <script>
         document.getElementById('leaveReviewBtn').addEventListener('click', function() {
             var commentForm = document.getElementById('commentForm');
@@ -81,8 +151,19 @@
                 commentForm.style.display = 'none';
             }
         });
+
+        function toggleEditForm(commentId) {
+            var commentDisplay = document.querySelector(`#comment-${commentId} .comment-display`);
+            var editForm = document.querySelector(`#edit-form-${commentId}`);
+
+            if (editForm.style.display === 'none' || editForm.style.display === '') {
+                commentDisplay.style.display = 'none';
+                editForm.style.display = 'block';
+            } else {
+                commentDisplay.style.display = 'block';
+                editForm.style.display = 'none';
+            }
+        }
     </script>
 
 {% endblock %}
-
-

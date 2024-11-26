@@ -211,3 +211,170 @@
         font-size: 2rem;
     }
 }
+
+/* Ratings Suggestion Section */
+.ratings-suggestion {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+.ratings-suggestion h2 {
+    font-size: 1.8rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.ratings-suggestion p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.ratings-suggestion p strong {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Comments Section */
+.comments-section {
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.comments-section h2 {
+    font-size: 1.8rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.comments-list .comment {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.comment p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+.rating i {
+    color: #ffcc00;
+    margin-right: 2px;
+}
+
+.comment .btn {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.comment .btn:hover {
+    background-color: #0056b3;
+}
+
+.comment-edit-form {
+    margin-top: 15px;
+}
+
+.comment-edit-form .form-group {
+    margin-bottom: 15px;
+}
+
+.comment-edit-form textarea,
+.comment-edit-form select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.comment-edit-form textarea:focus,
+.comment-edit-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Add Review Form */
+.add-comment-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-comment-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.add-comment-form textarea,
+.add-comment-form select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+}
+
+.add-comment-form textarea:focus,
+.add-comment-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.add-comment-form button {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-comment-form button:hover {
+    background-color: #218838;
+}
+
+/* Leave Review Button */
+#leaveReviewBtn {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#leaveReviewBtn:hover {
+    background-color: #5a6268;
+}

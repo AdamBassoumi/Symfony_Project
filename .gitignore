@@ -5,6 +5,8 @@
 public/assets/Product_Images/*
 !public/assets/Product_Images/
 
+migrations/
+
 /.env.local
 /.env.local.php
 /.env.*.local

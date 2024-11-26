@@ -39,7 +39,7 @@ class SecurityController extends AbstractController
             // Hash the password using UserPasswordHasherInterface
             $hashedPassword = $this->passwordHasher->hashPassword($utilisateur, $utilisateur->getMdp());
             $utilisateur->setMdp($hashedPassword);
-            $utilisateur->setRoles(['ROLE_USER']); // Ensure roles are passed as an array
+            $utilisateur->setRoles('ROLE_USER'); // Ensure roles are passed as an array
 
             // Save the user
             $userRepository->save($utilisateur, true);

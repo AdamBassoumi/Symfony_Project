@@ -114,9 +114,9 @@ class Utilisateur implements UserInterface,PasswordAuthenticatedUserInterface
         return ['ROLE_USER'];
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(string $role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
         return $this;
     }
 
