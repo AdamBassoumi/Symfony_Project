@@ -61,20 +61,22 @@
                         <div class="comment-display">
                             <p><strong>{{ commentaire.uname }}</strong> ({{ commentaire.date|date('Y-m-d') }}):</p>
                             <p>{{ commentaire.text }}</p>
-                            <p><strong>Rating:</strong> {{ commentaire.note }} / 5</p>
+                            
                             <div class="rating">
                                 {% for i in 1..commentaire.note %}
-                                    <i class="fa fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>  <!-- Render filled stars -->
                                 {% endfor %}
-                                {% for i in (commentaire.note+1)..5 %}
-                                    <i class="fa fa-star-o"></i>
+                                {% if commentaire.note < 5 %}
+                                {% for i in commentaire.note+1..5 %}
+                                    <i class="fa-regular fa-star"></i>  <!-- Render empty stars -->
                                 {% endfor %}
+                                {% endif %}
                             </div>
                             {% if authenticatedUser and authenticatedUser.email == commentaire.uname%}
                                 <button 
                                     class="btn btn-sm btn-primary edit-comment-btn" 
                                     onclick="toggleEditForm({{ commentaire.id }})">
-                                    Edit
+                                    <i class="fa-solid fa-edit"></i> Edit
                                 </button>
                             {% endif %}
                         </div>

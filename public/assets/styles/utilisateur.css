@@ -1,90 +1,203 @@
-/* Styles généraux */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-/* Styles pour le titre */
-h1 {
-    text-align: center;
-    margin: 20px 0;
-    color: #4CAF50;
-    font-size: 2em;
-}
-
-/* Styles pour la table */
-.table {
-    width: 90%;
+/* Main Container */
+.utilisateur-container {
+    max-width: 1300px;
     margin: 20px auto;
-    border-collapse: collapse;
-    background-color: white;
+    padding: 30px;
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Title Styling */
+.utilisateur-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 20px;
+}
+
+/* Table Wrapper (Responsive Scrolling) */
+.utilisateur-table-wrapper {
+    overflow-x: auto;
+    margin: 0 auto;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.table thead {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.table th, .table td {
-    padding: 12px 15px;
+/* Table Styling */
+.utilisateur-table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
     text-align: left;
-    border: 1px solid #ddd;
+    overflow: hidden;
+    border: 1px solid #d1d5db; /* Add border around the table */
 }
 
-.table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+.utilisateur-table th, 
+.utilisateur-table td {
+    padding: 15px;
+    font-size: 16px;
+    word-wrap: break-word;
+    border: 1px solid #d1d5db; /* Add borders to table cells */
+    vertical-align: middle; /* Vertically align content in cells */
 }
 
-.table tbody tr:hover {
-    background-color: #e9f7e1;
+/* Header Styling */
+.utilisateur-table th {
+    background-color: #1e40af;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: center; /* Keep headers centered */
 }
 
-/* Styles pour les liens */
-a {
-    text-decoration: none;
-    color: #4CAF50;
-    font-weight: bold;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 5px 10px;
-    border-radius: 4px;
+/* Row Alternation for Readability */
+.utilisateur-table tbody tr:nth-child(odd) {
+    background-color: #f3f4f6;
 }
 
-a:hover {
-    background-color: #4CAF50;
-    color: white;
+.utilisateur-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
 }
 
-/* Styles pour le bouton "Create new" */
-a[href$="new"] {
-    display: inline-block;
-    margin: 20px auto;
+/* Hover Effect */
+.utilisateur-table tbody tr:hover {
+    background-color: #e2e8f0;
+    cursor: pointer;
+}
+
+/* Data Cell Alignment */
+.utilisateur-table td {
+    text-align: left; /* Align data cells to the left for readability */
+}
+
+/* Button Group Styling */
+.utilisateur-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.utilisateur-btn, 
+.utilisateur-back-btn, 
+.utilisateur-create-btn, 
+.utilisateur-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 25px;
+    background-color: #1e40af;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    border: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.utilisateur-btn:hover, 
+.utilisateur-back-btn:hover, 
+.utilisateur-create-btn:hover, 
+.utilisateur-submit-btn:hover {
+    background-color: #2563eb;
+    transform: translateY(-3px);
+}
+
+.utilisateur-btn:active, 
+.utilisateur-back-btn:active, 
+.utilisateur-create-btn:active, 
+.utilisateur-submit-btn:active {
+    transform: translateY(1px);
+}
+
+/* Back Button Styling */
+.utilisateur-back-btn {
+    background-color: #4b5563;
+}
+
+.utilisateur-back-btn:hover {
+    background-color: #6b7280;
+}
+
+/* Delete Button */
+.utilisateur-delete-btn {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #ef4444;
     color: white;
-    font-size: 1rem;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-a[href$="new"]:hover {
-    background-color: #45a049;
+.utilisateur-delete-btn:hover {
+    background-color: #dc2626;
+    transform: translateY(-3px);
 }
 
-/* Style pour le message "no records found" */
-.table tbody tr td[colspan="7"] {
-    text-align: center;
-    font-style: italic;
-    color: #999;
-    padding: 20px;
+/* Form Styling */
+.utilisateur-form {
+    margin-top: 30px;
 }
 
+.utilisateur-form input, 
+.utilisateur-form select, 
+.utilisateur-form textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #f9fafb;
+}
 
+.utilisateur-form input:focus, 
+.utilisateur-form select:focus, 
+.utilisateur-form textarea:focus {
+    border-color: #1e40af;
+    outline: none;
+    background-color: #ffffff;
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .utilisateur-container {
+        margin: 15px;
+        padding: 20px;
+    }
 
+    .utilisateur-title {
+        font-size: 24px;
+    }
 
+    .utilisateur-btn-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .utilisateur-btn, 
+    .utilisateur-back-btn, 
+    .utilisateur-create-btn, 
+    .utilisateur-submit-btn {
+        width: 100%;
+    }
+
+    .utilisateur-table-wrapper {
+        margin: 0 -15px;
+        padding: 0 15px;
+    }
+}

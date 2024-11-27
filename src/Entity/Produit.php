@@ -34,7 +34,7 @@ class Produit
     private string $dateCreation;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(name: "category_id", referencedColumnName: "id", nullable: true)]
+    #[ORM\JoinColumn(name: "category_id", referencedColumnName: "id", nullable: false)]
     private ?Category $category;
 
     #[ORM\ManyToOne]

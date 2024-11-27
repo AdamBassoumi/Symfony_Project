@@ -3,47 +3,55 @@
 {% block title %}Utilisateur index{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}  <!-- Include styles from base.html.twig -->
-    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur.css') }}">  <!-- Specific CSS for Utilisateur -->
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Utilisateur index</h1>
+    <div class="utilisateur-container">
+        <h1 class="utilisateur-title">Utilisateur Index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Email</th>
-                <th>Mdp</th>
-                <th>actions</th>
-            </tr>
-        </thead>
+        <table class="utilisateur-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Mdp</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
+            <tbody>
+            {% for utilisateur in utilisateurs %}
+                <tr>
+                    <td>{{ utilisateur.id }}</td>
+                    <td>{{ utilisateur.nom }}</td>
+                    <td>{{ utilisateur.prenom }}</td>
+                    <td>{{ utilisateur.email }}</td>
+                    <td>{{ utilisateur.mdp }}</td>
+                    <td class="utilisateur-btn-group">
+                        <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="utilisateur-btn">
+                            <i class="fas fa-eye"></i> Show
+                        </a>
+                        <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="utilisateur-btn">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-
-        <tbody>
-        {% for utilisateur in utilisateurs %}
-            <tr>
-                <td>{{ utilisateur.id }}</td>
-                <td>{{ utilisateur.nom }}</td>
-                <td>{{ utilisateur.prenom }}</td>
-                <td>{{ utilisateur.email }}</td>
-                <td>{{ utilisateur.mdp }}</td>
-                <td>
-                    <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+        <div class="utilisateur-btn-group">
+            <a href="{{ path('app_utilisateur_new') }}" class="utilisateur-create-btn">
+                <i class="fas fa-plus"></i> Create new
+            </a>
+        </div>
+    </div>
 {% endblock %}

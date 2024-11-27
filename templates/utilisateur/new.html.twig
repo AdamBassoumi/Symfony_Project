@@ -1,15 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Utilisateur{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur_new.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur.css') }}">
 {% endblock %}
 
 {% block body %}
-    <h1>Create new Utilisateur</h1>
+    <div class="utilisateur-container">
+        <h1 class="utilisateur-title">Create new Utilisateur</h1>
 
-    {{ include('utilisateur/_form.html.twig') }}
+        {{ include('utilisateur/_form.html.twig') }}
 
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+        <div class="utilisateur-btn-group">
+            <a href="{{ path('app_utilisateur_index') }}" class="utilisateur-back-btn">
+                <i class="fas fa-arrow-left"></i> Back to list
+            </a>
+        </div>
+    </div>
 {% endblock %}
