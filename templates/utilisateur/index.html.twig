@@ -11,7 +11,7 @@
         <table class="utilisateur-table">
             <thead>
                 <tr>
-                    <th>Id</th><th>Nom</th><th>Prénom</th><th>Email</th><th>Mdp</th><th>Actions</th>
+                    <th>Id</th><th>Nom</th><th>Prénom</th><th>Email</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,13 +21,9 @@
                         <td>{{ utilisateur.nom }}</td>
                         <td>{{ utilisateur.prenom }}</td>
                         <td>{{ utilisateur.email }}</td>
-                        <td>{{ utilisateur.mdp }}</td>
                         <td>
                             <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}" class="utilisateur-btn">
                                 <i class="fas fa-eye"></i> Show
-                            </a>
-                            <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="utilisateur-btn">
-                                <i class="fas fa-edit"></i> Edit
                             </a>
                             <a href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" class="utilisateur-delete-btn">
                                 <i class="fas fa-trash"></i> Delete
