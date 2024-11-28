@@ -48,7 +48,7 @@
     border-radius: 8px;
     border: none;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
@@ -377,4 +377,24 @@
 
 #leaveReviewBtn:hover {
     background-color: #5a6268;
+}
+
+/* Style for the Visit Shop button */
+.btn-visit-shop {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-visit-shop:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05);
+}
+
+.btn-visit-shop:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Entity\Shop;
+use App\Entity\Produit;
 use App\Form\ShopType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -79,4 +80,97 @@ class ShopController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/shop/{shopId}', name: 'shop_show')]
+    public function showShop(int $shopId, EntityManagerInterface $em): Response
+    {
+        // Get the current authenticated user
+        $user = $this->getUser();
+
+        // Cast the user to Utilisateur if it's an instance of Utilisateur
+        if (!$user instanceof Utilisateur) {
+            return $this->redirectToRoute('login');  // Redirect to login page if the user is not an instance of Utilisateur
+        }
+
+        $shop = $em->getRepository(Shop::class)->find($shopId);
+
+        // Get the products for this shop
+        $products = $shop->getProduits();
+
+        // Render the show page for the shop
+        return $this->render('shop/show.html.twig', [
+            'shop' => $shop,
+            'products' => $products,
+        ]);
+    }
+
+    #[Route('/edit_shop/{shopId}', name: 'edit_shop')]
+    public function editShop(int $shopId, Request $request, EntityManagerInterface $em): Response
+    {
+        // Get the current authenticated user
+        $user = $this->getUser();
+    
+        if (!$user instanceof Utilisateur) {
+            return $this->redirectToRoute('login');  // Redirect to login if user is not authenticated
+        }
+    
+        // Find the shop that the user is trying to edit
+        $shop = $em->getRepository(Shop::class)->find($shopId);
+    
+        // Check if the shop exists and belongs to the current user or if the user is an admin
+        if (!$shop || ($shop->getUtilisateur() !== $user && !in_array('ROLE_ADMIN', $user->getRoles()))) {
+            throw $this->createNotFoundException('Shop not found or you do not have permission to edit it.');
+        }
+    
+        // Create the form to edit the shop
+        $form = $this->createForm(ShopType::class, $shop);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Save the updated shop
+            $em->persist($shop);
+            $em->flush();
+    
+            // Redirect to the user's shop page after updating
+            return $this->redirectToRoute('myshop');
+        }
+    
+        return $this->render('shop/edit.html.twig', [
+            'shop' => $shop,
+            'form' => $form->createView(),
+            'is_editing' => true, // We are editing an existing shop
+        ]);
+    }
+
+    #[Route('/delete_shop/{shopId}', name: 'app_shop_delete')]
+    public function deleteShop(int $shopId, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof Utilisateur) {
+            return $this->redirectToRoute('login'); 
+        }
+
+        $shop = $em->getRepository(Shop::class)->find($shopId);
+
+        if (!$shop || ($shop->getUtilisateur() !== $user && !in_array('ROLE_ADMIN', $user->getRoles()))) {
+            throw $this->createAccessDeniedException('You do not have permission to delete this shop.');
+        }
+
+        $em->remove($shop);
+        $em->flush();
+
+        return $this->redirectToRoute('home');
+    }
+
+    #[Route('/shop', name: 'shop_index')]
+    public function index(EntityManagerInterface $em): Response
+    {
+        $shops = $em->getRepository(Shop::class)->findAll();
+
+        return $this->render('shop/index.html.twig', [
+            'shops' => $shops,
+        ]);
+    }
+    
 }

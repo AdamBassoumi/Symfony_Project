@@ -16,35 +16,41 @@
         <p><strong>Created on:</strong> {{ produit.dateCreation|date('Y-m-d') }}</p>
 
         <!-- Ratings Suggestion -->
-            <h2>Customer Ratings Overview</h2>
-            {% if produit.commentaires|length > 0 %}
-                {% set totalRating = 0 %}
-                {% for commentaire in produit.commentaires %}
-                    {% set totalRating = totalRating + commentaire.note %}
-                {% endfor %}
-                {% set averageRating = totalRating / produit.commentaires|length %}
-                <p><strong>Average Rating:</strong> {{ averageRating|round(2) }} / 5</p>
-                <p>
-                    <strong>Suggestions:</strong>
-                    {% if averageRating >= 4 %}
-                        Highly recommended! Customers love this product.
-                    {% elseif averageRating >= 3 %}
-                        Customers find this product good, but there might be room for improvement.
-                    {% else %}
-                        Consider customer feedback to enhance the product.
-                    {% endif %}
-                </p>
-            {% else %}
-                <p>No ratings yet. Be the first to rate this product!</p>
-            {% endif %}
+        <h2>Customer Ratings Overview</h2>
+        {% if produit.commentaires|length > 0 %}
+            {% set totalRating = 0 %}
+            {% for commentaire in produit.commentaires %}
+                {% set totalRating = totalRating + commentaire.note %}
+            {% endfor %}
+            {% set averageRating = totalRating / produit.commentaires|length %}
+            <p><strong>Average Rating:</strong> {{ averageRating|round(2) }} / 5</p>
+            <p>
+                <strong>Suggestions:</strong>
+                {% if averageRating >= 4 %}
+                    Highly recommended! Customers love this product.
+                {% elseif averageRating >= 3 %}
+                    Customers find this product good, but there might be room for improvement.
+                {% else %}
+                    Consider customer feedback to enhance the product.
+                {% endif %}
+            </p>
+        {% else %}
+            <p>No ratings yet. Be the first to rate this product!</p>
+        {% endif %}
 
         <!-- Add Buy Now button or additional details -->
         <a href="#" class="btn btn-success">
             <i class="fa fa-shopping-cart"></i> Buy Now
         </a>
-        <a href="{{ path('home') }}" class="btn back-btn">
-            <i class="fa fa-arrow-left"></i> Back to Shop
+
+        <a href="{{ path('shop_show', {'shopId': produit.shop.id}) }}" class="btn btn-info mt-2 btn-visit-shop">
+            <i class="fa fa-store"></i> Visit Shop
         </a>
+
+        <a href="{{ path('home') }}" class="btn back-btn">
+            <i class="fa fa-arrow-left"></i> Back to Home
+        </a>
+
     </div>
 
     <!-- Comments Section -->
@@ -59,7 +65,7 @@
                         <div class="comment-display">
                             <p><strong>{{ commentaire.uname }}</strong> ({{ commentaire.date|date('Y-m-d') }}):</p>
                             <p>{{ commentaire.text }}</p>
-                            
+
                             <div class="rating">
                                 {% for i in 1..commentaire.note %}
                                     <i class="fa-solid fa-star"></i>  <!-- Render filled stars -->
@@ -70,7 +76,7 @@
                                 {% endfor %}
                                 {% endif %}
                             </div>
-                            {% if authenticatedUser and authenticatedUser.email == commentaire.uname%}
+                            {% if authenticatedUser and authenticatedUser.email == commentaire.uname %}
                                 <button 
                                     class="btn btn-sm btn-primary edit-comment-btn" 
                                     onclick="toggleEditForm({{ commentaire.id }})">

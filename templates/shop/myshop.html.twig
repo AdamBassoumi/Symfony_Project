@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My Shop{% endblock %}
-
 {% block stylesheets %}
     {{ parent() }}  <!-- Include styles from base.html.twig -->
     <link rel="stylesheet" href="{{ asset('assets/styles/myshop.css') }}">  <!-- Homepage specific CSS -->
@@ -11,6 +9,11 @@
     <div class="myshop-container">
         <h1>{{ shop.nom }}</h1>
         <p>{{ shop.description }}</p>
+
+        <!-- Edit Shop Button -->
+        <a href="{{ path('edit_shop', {'shopId': shop.id}) }}" class="btn btn-secondary mt-3">
+            <i class="fas fa-edit"></i> Edit Shop
+        </a>
 
         <!-- Button to create a new product with FontAwesome icon -->
         <a href="{{ path('app_produit_new') }}" class="btn btn-primary mt-3">
@@ -49,5 +52,16 @@
         {% else %}
             <p>No products yet. Add a product!</p>
         {% endif %}
+
+        <!-- Delete Shop Button -->
+        <div class="mt-5 text-center">
+            <form method="post" action="{{ path('app_shop_delete', {'shopId': shop.id}) }}" onsubmit="return confirm('Are you sure you want to delete this shop?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ shop.id) }}">
+                <button style="cursor:pointer" class="btn btn-danger btn-lg">
+                    <i class="fas fa-trash-alt"></i> Delete Shop
+                </button>
+            </form>
+        </div>
+
     </div>
 {% endblock %}

@@ -196,3 +196,21 @@
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Light blue outline */
 }
 
+.myshop-container .btn-secondary {
+    background-color: #6c757d; /* Grey background */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-block;
+    margin-bottom: 20px; /* Space below the button */
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.myshop-container .btn-secondary:hover {
+    background-color: #5a6268; /* Darker grey on hover */
+    transform: scale(1.05);
+}
+

@@ -34,7 +34,7 @@ class ShopType extends AbstractType
             'label_attr' => ['class' => 'form-label'],
         ])
         ->add('submit', SubmitType::class, [
-            'label' => 'Create Shop',
+            'label' => $options['submit_label'] ?? 'Create Shop',
             'attr' => [
                 'class' => 'btn btn-primary',
             ],
@@ -45,6 +45,7 @@ class ShopType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Shop::class,
+            'submit_label' => 'Create Shop',  // Default label is 'Create Shop'
         ]);
     }
 }
