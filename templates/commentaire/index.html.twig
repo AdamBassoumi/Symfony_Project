@@ -1,43 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaire index{% endblock %}
+{% block title %}Commentaire Index{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('assets/styles/commentaire.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/commentaire_pages.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-    <h1>Commentaire index</h1>
+    <div class="commentaire-container">
+        <h1 class="commentaire-title">Commentaire Index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Uname</th>
-                <th>Text</th>
-                <th>Date</th>
-                <th>Note</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commentaire in commentaires %}
-            <tr>
-                <td>{{ commentaire.id }}</td>
-                <td>{{ commentaire.uname }}</td>
-                <td>{{ commentaire.text }}</td>
-                <td>{{ commentaire.date }}</td>
-                <td>{{ commentaire.note }}</td>
-                <td>
-                    <a href="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}">delete</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="commentaire-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Uname</th>
+                    <th>Text</th>
+                    <th>Date</th>
+                    <th>Note</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for commentaire in commentaires %}
+                <tr class="commentaire-row">
+                    <td>{{ commentaire.id }}</td>
+                    <td>{{ commentaire.uname }}</td>
+                    <td>{{ commentaire.text }}</td>
+                    <td>{{ commentaire.date }}</td>
+                    <td>{{ commentaire.note }}</td>
+                    <td>
+                        <a class="commentaire-link" href="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="commentaire-row">
+                    <td colspan="6">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

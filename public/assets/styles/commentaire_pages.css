@@ -1,0 +1,100 @@
+/* General Styling for Commentaire */
+.commentaire-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.commentaire-title {
+    font-size: 2em;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+.commentaire-table,
+.commentaire-details-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.commentaire-table th,
+.commentaire-details-table th {
+    background-color: #f5f5f5;
+    padding: 10px;
+    text-align: left;
+}
+
+.commentaire-table td,
+.commentaire-details-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.commentaire-row:hover {
+    background-color: #f9f9f9;
+}
+
+/* Link Styling */
+.commentaire-link,
+.commentaire-back-link,
+.commentaire-edit-link {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.commentaire-link i,
+.commentaire-back-link i,
+.commentaire-edit-link i {
+    margin-right: 8px;
+}
+
+.commentaire-link:hover,
+.commentaire-back-link:hover,
+.commentaire-edit-link:hover {
+    text-decoration: underline;
+}
+
+/* Actions Section */
+.commentaire-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.commentaire-back-link,
+.commentaire-edit-link {
+    margin-right: 15px;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.commentaire-back-link:hover,
+.commentaire-edit-link:hover {
+    background-color: #45a049;
+}
+
+/* Delete Button */
+.commentaire-delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.commentaire-delete-btn:hover {
+    background-color: #c0392b;
+}

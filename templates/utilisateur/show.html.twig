@@ -38,15 +38,19 @@
             </table>
         </div>
 
-        <div class="utilisateur-btn-group">
-            <a href="{{ path('app_utilisateur_index') }}" class="utilisateur-back-btn">
-                <i class="fas fa-arrow-left"></i> Back to List
-            </a>
+        <div class="show-utilisateur-btn-group">
             <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="utilisateur-btn">
                 <i class="fas fa-edit"></i> Edit
             </a>
+            <a href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" class="utilisateur-delete-btn">
+                <i class="fas fa-trash"></i> Delete
+            </a>
         </div>
 
-        {{ include('utilisateur/_delete_form.html.twig', {'class': 'utilisateur-delete-form'}) }}
+        <div class="utilisateur-back-section">
+            <a href="{{ path('app_utilisateur_index') }}" class="utilisateur-back-btn">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
     </div>
 {% endblock %}
