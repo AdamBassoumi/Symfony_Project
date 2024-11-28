@@ -17,6 +17,7 @@
             <ul class="navbar-links">
                 <li><a href="{{ path('home') }}" class="navbar-link"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="{{ path('about_page') }}" class="navbar-link"><i class="fas fa-info-circle"></i> About</a></li>
+                
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li><a href="{{ path('logout') }}" class="navbar-link"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     {% if app.user.shop %}
@@ -24,6 +25,13 @@
                     {% else %}
                         <li><a href="{{ path('create_shop') }}" class="navbar-link"><i class="fas fa-plus-circle"></i> Create Shop</a></li>
                     {% endif %}
+                    
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="/utilisateur" class="navbar-link"><i class="fas fa-users"></i> Users</a></li>
+                        <li><a href="/category" class="navbar-link"><i class="fas fa-th-list"></i> Categories</a></li>
+                        <li><a href="/commentaire" class="navbar-link"><i class="fas fa-comment-dots"></i> Comments</a></li>
+                    {% endif %}
+                    
                 {% else %}
                     <li><a href="{{ path('login') }}" class="navbar-link login-btn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
                     <li><a href="{{ path('signup') }}" class="navbar-link signup-btn"><i class="fas fa-user-plus"></i> Sign Up</a></li>
