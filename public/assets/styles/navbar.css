@@ -13,7 +13,7 @@
 
 .navbar-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;  /* Align everything to the left */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -26,6 +26,7 @@
     text-decoration: none;
     display: flex;
     align-items: center;
+    margin-right: 30px;  /* Add margin to the right to create space between logo and links */
 }
 
 .navbar-brand .logo {
@@ -37,6 +38,7 @@
     list-style: none;
     display: flex;
     gap: 20px;
+    margin-left: auto;  /* Push the nav links to the right */
 }
 
 .navbar-link {
