@@ -1,3 +1,5 @@
+{# templates/utilisateur/edit.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
@@ -9,27 +11,35 @@
     <div class="edit-utilisateur-container">
         <h1 class="edit-utilisateur-title">Edit Utilisateur</h1>
 
+        <!-- Display flash messages -->
+        <div class="flash-messages">
+            {% for type, messages in app.flashes %}
+                <div class="flash-{{ type }}">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+
         <div class="utilisateur-form-container">
             {{ form_start(form, {'attr': {'class': 'utilisateur-form'}}) }}
                 {{ form_row(form.nom) }}
                 {{ form_row(form.prenom) }}
                 {{ form_row(form.email) }}
-                {{ form_row(form.mdp) }}
+                {{ form_row(form.oldPassword) }}
+                {{ form_row(form.newPassword) }}
+                {{ form_row(form.confirmMdp) }}
                 <button type="submit" class="utilisateur-submit-btn">
                     <i class="fas fa-save"></i> {{ button_label|default('Update') }}
                 </button>
-                <span class="edit-utilisateur-btn-group">
-                    <a href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" class="utilisateur-delete-btn">
-                        <i class="fas fa-trash"></i> Delete
-                    </a>
-                </span>
             {{ form_end(form) }}
         </div>
 
         <!-- Go Back Button Below the Update/Delete buttons -->
         <div class="utilisateur-back-section">
-            <a href="{{ path('app_utilisateur_index') }}" class="utilisateur-back-btn">
-                <i class="fas fa-arrow-left"></i> Back to list
+            <a href="{{ path('home') }}" class="utilisateur-back-btn">
+                <i class="fas fa-arrow-left"></i> Cancel
             </a>
         </div>
     </div>

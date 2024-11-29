@@ -17,6 +17,7 @@
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    padding-left: 20px;  /* Add left padding to move logo further left */
 }
 
 .navbar-brand {
@@ -53,6 +54,11 @@
 .navbar-link:hover {
     background-color: #444;
     transform: scale(1.05);
+}
+
+/* New Styles for the Edit User Button */
+.navbar-link i {
+    margin-right: 8px;  /* Space between icon and text */
 }
 
 .login-btn, .signup-btn {

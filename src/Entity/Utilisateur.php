@@ -34,7 +34,35 @@ class Utilisateur implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "string", length: 255)]
     private ?string $role = 'ROLE_USER';  // Default role
 
-    // Getters and Setters for each property
+    private ?string $confirmMdp = null;
+    private ?string $oldPassword = null;
+
+
+
+
+
+
+    public function getOldPassword(): ?string
+    {
+        return $this->oldPassword;
+    }
+
+    public function setOldPassword(?string $oldPassword): self
+    {
+        $this->oldPassword = $oldPassword;
+        return $this;
+    }
+
+    public function getConfirmMdp(): ?string
+    {
+        return $this->confirmMdp;
+    }
+
+    public function setConfirmMdp(?string $confirmMdp): self
+    {
+        $this->confirmMdp = $confirmMdp;
+        return $this;
+    }
 
     public function getId(): ?int
     {

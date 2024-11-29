@@ -30,6 +30,7 @@ security:
             security: true
 
     access_control:
+        - { path: ^/utilisateur/\d+/edit, roles: [ROLE_USER, ROLE_ADMIN] }
         - { path: ^/utilisateur, roles: ROLE_ADMIN }
         - { path: ^/commentaire$, roles: ROLE_ADMIN }
         - { path: ^/produit$, roles: ROLE_ADMIN }

@@ -238,3 +238,33 @@ a {
 .utilisateur-delete-btn {
     margin:  6px; /* Adds horizontal margin between buttons */
 }
+
+/* Flash Messages */
+.flash-messages {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.flash-success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.flash-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.flash-info {
+    background-color: #cce5ff;
+    color: #004085;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
