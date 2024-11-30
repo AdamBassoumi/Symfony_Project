@@ -1,42 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur</h1>
+    <div class="utilisateur-container">
+        <h1 class="utilisateur-title">Utilisateur Details</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ utilisateur.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ utilisateur.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ utilisateur.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ utilisateur.email }}</td>
-            </tr>
-            <tr>
-                <th>Mdp</th>
-                <td>{{ utilisateur.mdp }}</td>
-            </tr>
-            <tr>
-                <th>HasShop</th>
-                <td>{{ utilisateur.hasShop ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="utilisateur-details-wrapper">
+            <table class="utilisateur-table">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ utilisateur.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ utilisateur.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ utilisateur.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ utilisateur.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+        <div class="show-utilisateur-btn-group">
+            <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}" class="utilisateur-btn">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            <a href="{{ path('app_utilisateur_delete', {'id': utilisateur.id}) }}" class="utilisateur-delete-btn">
+                <i class="fas fa-trash"></i> Delete
+            </a>
+        </div>
 
-    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
-
-    {{ include('utilisateur/_delete_form.html.twig') }}
+        <div class="utilisateur-back-section">
+            <a href="{{ path('app_utilisateur_index') }}" class="utilisateur-back-btn">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
 {% endblock %}

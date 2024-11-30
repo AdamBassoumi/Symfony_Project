@@ -6,7 +6,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\Utilisateur
-                property: email  # Assuming you're using email for login
+                property: email  
 
     firewalls:
         dev:
@@ -14,21 +14,25 @@ security:
             security: false
 
         main:
+            pattern: ^/
             # Enable form_login
             form_login:
-                login_path: login          # Route for displaying the login form
-                check_path: login_check    # Route for processing the form submission
-                default_target_path: home  # Redirect to home after login (adjust as needed)
+                login_path: login          
+                check_path: login_check    
+                default_target_path: home  
 
             # Enable logout
             logout:
                 path: logout
-                target: login # Redirect after logout (optional)
+                target: home
 
             # Enable security
             security: true
 
-    # Access control
-    # access_control:
-    #     - { path: ^/admin, roles: ROLE_ADMIN }  # Example for securing admin routes
-    #     - { path: ^/profile, roles: ROLE_USER }
+    access_control:
+        - { path: ^/utilisateur/\d+/edit, roles: [ROLE_USER, ROLE_ADMIN] }
+        - { path: ^/utilisateur, roles: ROLE_ADMIN }
+        - { path: ^/commentaire$, roles: ROLE_ADMIN }
+        - { path: ^/produit$, roles: ROLE_ADMIN }
+        - { path: ^/category, roles: ROLE_ADMIN }
+        # - { path: ^/shop$, roles: ROLE_ADMIN }

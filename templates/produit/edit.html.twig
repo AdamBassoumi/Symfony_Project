@@ -1,16 +1,106 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Produit{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('assets/styles/produit.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/produit2.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 {% endblock %}
+
 {% block body %}
-    <h1>Edit Produit</h1>
+    <div class="produit-page-wrapper">
+        <h1 class="produit-page-title">Edit Produit</h1>
 
-    {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+        {# Flash messages display section #}
+        {% if app.flashes('error') %}
+            <div class="produit-flash-message produit-error">
+                {% for message in app.flashes('error') %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if app.flashes('success') %}
+            <div class="produit-flash-message produit-success">
+                {% for message in app.flashes('success') %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-    <a href="{{ path('app_produit_index') }}">back to list</a>
+        <div class="produit-form-card">
+            {# Display the current product image if it exists #}
+            <div class="produit-form-group" id="image-preview-container" style="margin-bottom: 15px; text-align: center;">
+                <img id="image-preview" 
+                     src="{% if produit.fichier and produit.fichier != '' %}
+                            {{ asset('assets/Product_Images/' ~ produit.fichier) }}
+                         {% else %}
+                            https://via.placeholder.com/300x200
+                         {% endif %}" 
+                     alt="{{ produit.name }}"/>
+            </div>
 
-    {{ include('produit/_delete_form.html.twig') }}
+            {{ form_start(form, {'enctype': 'multipart/form-data'}) }}
+                
+                {# Name Field #}
+                <div class="produit-form-group">
+                    {{ form_row(form.name) }}
+                </div>
+
+                {# Description Field #}
+                <div class="produit-form-group">
+                    {{ form_row(form.description) }}
+                </div>
+
+                {# Price Field #}
+                <div class="produit-form-group">
+                    {{ form_row(form.prix) }}
+                </div>
+
+                {# Image Upload Field #}
+                <div class="produit-form-group">
+                    <label for="produit_fichier">Image</label>
+                    {{ form_row(form.fichier) }} <!-- Render the file input for image upload properly -->
+                </div>
+
+                {# Category Field #}
+                <div class="produit-form-group">
+                    {{ form_row(form.category) }}
+                </div>
+
+                {# Submit Button #}
+                <button type="submit" class="produit-submit-btn">
+                    <i class="fa fa-save"></i> Update Product
+                </button>
+
+                {# Manually render CSRF token to avoid extra fields appearing #}
+                {{ form_row(form._token) }} <!-- CSRF token -->
+                
+            {{ form_end(form) }}
+        </div>
+
+        <a href="{{ path('myshop') }}" class="produit-back-btn">
+            <i class="fa fa-arrow-left"></i> Back to list
+        </a>
+    </div>
+
+    {% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // JavaScript to preview the image before the form is submitted
+            document.getElementById('produit_fichier').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Show the preview of the selected image
+                        const imagePreview = document.getElementById('image-preview');
+                        imagePreview.src = e.target.result;
+                    };
+                    
+                    reader.readAsDataURL(file); // Convert the file to a data URL
+                }
+            });
+        });
+    </script>
+    {% endblock %}
 {% endblock %}

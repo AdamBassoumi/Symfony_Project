@@ -1,20 +1,46 @@
-{% extends 'base.html.twig' %}
+{# templates/utilisateur/edit.html.twig #}
 
-{% block title %}Edit Utilisateur{% endblock %}
+{% extends 'base.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur_edit.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/utilisateur.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Edit Utilisateur</h1>
+    <div class="edit-utilisateur-container">
+        <h1 class="edit-utilisateur-title">Edit Utilisateur</h1>
 
-    {{ include('utilisateur/_form.html.twig', {'button_label': 'Update'}) }}
+        <!-- Display flash messages -->
+        <div class="flash-messages">
+            {% for type, messages in app.flashes %}
+                <div class="flash-{{ type }}">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
 
-    <a href="{{ path('app_utilisateur_index') }}">Back to list</a>
+        <div class="utilisateur-form-container">
+            {{ form_start(form, {'attr': {'class': 'utilisateur-form'}}) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.prenom) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.oldPassword) }}
+                {{ form_row(form.newPassword) }}
+                {{ form_row(form.confirmMdp) }}
+                <button type="submit" class="utilisateur-submit-btn">
+                    <i class="fas fa-save"></i> {{ button_label|default('Update') }}
+                </button>
+            {{ form_end(form) }}
+        </div>
 
-    {{ include('utilisateur/_delete_form.html.twig') }}
-</div>
+        <!-- Go Back Button Below the Update/Delete buttons -->
+        <div class="utilisateur-back-section">
+            <a href="{{ path('home') }}" class="utilisateur-back-btn">
+                <i class="fas fa-arrow-left"></i> Cancel
+            </a>
+        </div>
+    </div>
 {% endblock %}

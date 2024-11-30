@@ -18,17 +18,17 @@ class ProduitType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('prix')
-            ->add('fichier', FileType::class, [  // Correct field name: fichier
+            ->add('fichier', FileType::class, [
                 'label' => 'Product Image (PNG, JPG)', 
-                'mapped' => false, // This field is not mapped to the entity
-                'required' => false,  // Optional: change to true if the file is required
+                'mapped' => false,
+                'required' => false,
                 'attr' => [
-                    'accept' => 'image/png, image/jpeg', // Accept only PNG and JPG images
+                    'accept' => 'image/png, image/jpeg',
                 ],
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ]);
     }
 

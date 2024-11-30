@@ -1,0 +1,21 @@
+{# templates/error/default.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}An Error Occurred{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}  <!-- Include styles from base.html.twig -->
+    <link rel="stylesheet" href="{{ asset('assets/styles/errors.css') }}">  <!-- Homepage specific CSS -->
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="error-box">
+            <i class="fas fa-times-circle"></i>
+            <h1>Whoops! Something Went Wrong!</h1>
+            <p>We don't know what happened, but it seems like our servers had a little hiccup. Try again later!</p>
+            <a href="{{ path('home') }}" class="button">Go to Homepage</a>
+        </div>
+    </div>
+{% endblock %}

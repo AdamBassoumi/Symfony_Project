@@ -1,0 +1,176 @@
+/* General Category Styles */
+.category-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.category-title {
+    font-size: 2.5em;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Table Styles */
+.category-table-wrapper {
+    margin-bottom: 40px;
+}
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.category-table th, .category-table td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.1em;
+}
+
+.category-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.category-table td {
+    color: #555;
+}
+
+.category-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button and Link Styles */
+.category-btn,
+.category-create-btn,
+.category-back-btn,
+.category-submit-btn,
+.category-delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #28a745;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 200px;
+    justify-content: center;
+}
+
+.category-btn:hover,
+.category-create-btn:hover,
+.category-back-btn:hover,
+.category-submit-btn:hover,
+.category-delete-btn:hover {
+    background-color: #218838;
+}
+
+/* Specific Button Colors */
+.category-create-btn {
+    background-color: #007bff;
+}
+
+.category-create-btn:hover {
+    background-color: #0056b3;
+}
+
+.category-back-btn {
+    background-color: #6c757d;
+}
+
+.category-back-btn:hover {
+    background-color: #5a6268;
+}
+
+.category-delete-btn {
+    background-color: #dc3545;
+}
+
+.category-delete-btn:hover {
+    background-color: #c82333;
+}
+
+.category-submit-btn {
+    background-color: #28a745;
+}
+
+.category-submit-btn:hover {
+    background-color: #218838;
+}
+
+/* FontAwesome Icons Styling */
+.category-btn i,
+.category-create-btn i,
+.category-back-btn i,
+.category-submit-btn i,
+.category-delete-btn i {
+    margin-right: 10px;
+}
+
+/* Form Styles */
+.category-form {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.category-form-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.category-form-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Extra Styling for Error or Success States */
+.category-form .invalid {
+    border-color: #dc3545;
+}
+
+.category-form .valid {
+    border-color: #28a745;
+}
+
+/* Hover and Active States */
+.category-btn:hover,
+.category-create-btn:hover,
+.category-back-btn:hover,
+.category-submit-btn:hover,
+.category-delete-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.category-btn:active,
+.category-create-btn:active,
+.category-back-btn:active,
+.category-submit-btn:active,
+.category-delete-btn:active {
+    transform: scale(0.98);
+}

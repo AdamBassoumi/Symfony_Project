@@ -1,0 +1,79 @@
+/* General Styling for Shop */
+.shop-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.shop-title {
+    font-size: 2em;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Table Styling */
+.shop-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.shop-table th {
+    background-color: #f5f5f5;
+    padding: 10px;
+    text-align: left;
+}
+
+.shop-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.shop-row:hover {
+    background-color: #f9f9f9;
+}
+
+/* Link Styling */
+.shop-link,
+.shop-view-link {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;  /* Add spacing between each action link */
+}
+
+.shop-link i,
+.shop-view-link i {
+    margin-right: 8px;
+}
+
+.shop-link:hover,
+.shop-view-link:hover {
+    text-decoration: underline;
+}
+
+/* Actions Section */
+.shop-actions {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Delete Button */
+.shop-delete-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.shop-delete-btn:hover {
+    background-color: #c0392b;
+}

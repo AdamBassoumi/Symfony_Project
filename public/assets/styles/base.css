@@ -4,12 +4,18 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 body {
     font-family: 'Roboto', sans-serif; /* Modern and clean font */
     line-height: 1.6;
     background-color: #f4f4f4;
     color: #333;
     padding-top: 60px; /* Make space for the fixed navbar */
+    padding-bottom: 40px;
 }
 /* Footer Styles */
 .footer {
@@ -17,5 +23,9 @@ body {
     background-color: #333;
     color: white;
     padding: 1rem;
-    margin-top: 2rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; 
 }

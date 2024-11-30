@@ -1,13 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Shop{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/styles/create_shop.css') }}">  <!-- Include the create_shop CSS -->
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Shop</h1>
+    <div class="create_shop-container mt-5">
+        <h1 class="create_shop-title text-center mb-4">{{ is_editing ? 'Edit Shop' : 'Create Shop' }}</h1>
 
-    {{ include('shop/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="create_shop-card shadow-lg p-4">
+            <h3 class="create_shop-card-title text-center mb-4">{{ is_editing ? 'Modify Shop Details' : 'Create a New Shop' }}</h3>
 
-    <a href="{{ path('app_shop_index') }}">back to list</a>
+            <!-- Start the form for editing or creating the shop -->
+            {{ form_start(form, { 'attr': {'class': 'create_shop-form'}}) }}
+                
+                <div class="create_shop-form-group">
+                    {{ form_label(form.nom) }}
+                    {{ form_widget(form.nom, { 'attr': {'class': 'create_shop-form-control', 'placeholder': 'Enter your shop name'} }) }}
+                    <div class="invalid-feedback">{{ form_errors(form.nom) }}</div>
+                </div>
 
-    {{ include('shop/_delete_form.html.twig') }}
+                <div class="create_shop-form-group">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description, { 'attr': {'class': 'create_shop-form-control', 'placeholder': 'Describe your shop'} }) }}
+                    <div class="invalid-feedback">{{ form_errors(form.description) }}</div>
+                </div>
+
+                <div class="create_shop-button-container text-center mt-4">
+                    <!-- Conditionally render the submit button label -->
+                    {{ form_widget(form.submit, { 'label': is_editing ? 'Update Shop' : 'Create Shop', 'attr': {'class': 'create_shop-btn create_shop-btn-success btn-lg'} }) }}
+                </div>
+            
+            {{ form_end(form) }}
+
+            <!-- Back button to the shop list page -->
+            <div class="create_shop-back-button text-center mt-4">
+                <a href="{{ path('myshop') }}" class="create_shop-btn create_shop-btn-secondary">Back to My Shop</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

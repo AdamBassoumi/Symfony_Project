@@ -7,6 +7,7 @@ use App\Entity\Utilisateur;
 use App\Form\ProduitType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,29 +28,36 @@ final class ProduitController extends AbstractController
             'produits' => $produits,
         ]);
     }
+    
+    #[Route('/show/{id}', name: 'app_produit_show', methods: ['GET'])]
+    public function show(Produit $produit, Security $security): Response
+    {
+        $user = $security->getUser();
+        return $this->render('produit/show.html.twig', [
+            'produit' => $produit,
+            'authenticatedUser' => $user,
+        ]);
+    }
 
     #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        // Get the current authenticated user
         $user = $this->getUser();
         
         // Ensure that the user is authenticated and is an instance of Utilisateur
         if (!$user instanceof Utilisateur) {
-            return $this->redirectToRoute('app_login');  // Redirect to login if the user is not authenticated
+            return $this->redirectToRoute('login'); 
         }
         
-        // Create a new Produit entity
         $produit = new Produit();
         
         // Associate the product with the user's shop
         if ($user->getShop()) {
-            $produit->setShop($user->getShop());  // Set the shop for the product
+            $produit->setShop($user->getShop());
         } else {
-            return $this->redirectToRoute('create_shop');  // Redirect to create shop if no shop exists
+            return $this->redirectToRoute('create_shop'); 
         }
         
-        // Set the current date for the product creation
         $produit->setDateCreation((new \DateTime())->format('Y-m-d'));
     
         // Create the form to collect product data
@@ -85,16 +93,13 @@ final class ProduitController extends AbstractController
                     return $this->redirectToRoute('app_produit_new');
                 }
             } else {
-                // If no file is uploaded
                 $this->addFlash('error', 'No file uploaded.');
                 return $this->redirectToRoute('app_produit_new');
             }
     
-            // Persist the new product entity to the database
             $entityManager->persist($produit);
             $entityManager->flush();
     
-            // Redirect to the shop's product listing page or product details page
             return $this->redirectToRoute('myshop');
         }
     
@@ -102,11 +107,10 @@ final class ProduitController extends AbstractController
         if ($form->isSubmitted() && !$form->isValid()) {
             $errors = $form->getErrors(true, false);
             foreach ($errors as $error) {
-                dump($error->getMessage()); // Log form errors
+                dump($error->getMessage());
             }
         }
     
-        // Render the form to create the product
         return $this->render('produit/new.html.twig', [
             'produit' => $produit,
             'form' => $form->createView(),
@@ -114,31 +118,103 @@ final class ProduitController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
+        $user = $this->getUser();
+        
+        // Check if the authenticated user is either the owner of the shop or an admin
+        if (!$this->canEditOrDelete($user, $produit)) {
+            // If the user is not allowed to edit, redirect them or show an error
+            $this->addFlash('error', 'You do not have permission to edit this product.');
+            return $this->redirectToRoute('home');
+        }
+    
+        // Save the current image (if any) before the form is submitted, to prevent it from being lost
+        $currentImage = $produit->getFichier();
+    
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('fichier')->getData();  // Get the uploaded file
+    
+            if ($file) {
+                // If a new file was uploaded, handle the upload process
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename); // Slugify the original filename
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$file->guessExtension(); // Add unique identifier to filename
+                
+                try {
+                    // Move the uploaded file to the specified directory
+                    $file->move(
+                        $this->getParameter('product_images_directory'), // Path defined in services.yaml
+                        $newFilename
+                    );
+                    
+                    // Set the filename of the uploaded file in the entity
+                    $produit->setFichier($newFilename);
+    
+                    // Delete the old image if it exists (important to avoid orphaned files)
+                    if ($currentImage) {
+                        $oldImagePath = $this->getParameter('product_images_directory') . '/' . $currentImage;
+                        if (file_exists($oldImagePath)) {
+                            unlink($oldImagePath);  // Delete the old image file
+                        }
+                    }
+                } catch (FileException $e) {
+                    // Handle file upload error
+                    $this->addFlash('error', 'There was an issue uploading the image.');
+                    return $this->redirectToRoute('app_produit_edit', ['id' => $produit->getId()]);
+                }
+            } else {
+                // If no new file is uploaded, keep the current image
+                $produit->setFichier($currentImage);
+            }
+    
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    
+            return $this->redirectToRoute('myshop', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('produit/edit.html.twig', [
             'produit' => $produit,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
     #[Route('/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        
+        // Check if the authenticated user is either the owner of the shop or an admin
+        if (!$this->canEditOrDelete($user, $produit)) {
+            // If the user is not allowed to delete, redirect them or show an error
+            $this->addFlash('error', 'You do not have permission to delete this product.');
+            return $this->redirectToRoute('home');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {
             $entityManager->remove($produit);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('myshop', [], Response::HTTP_SEE_OTHER);
+    }
+
+    // Helper method to check if the user can edit or delete the product
+    private function canEditOrDelete(Utilisateur $user, Produit $produit): bool
+    {
+        // Check if the user is an ADMIN
+        if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return true;
+        }
+
+        // Check if the product's shop belongs to the current authenticated user
+        if ($produit->getShop() && $produit->getShop()->getUtilisateur() === $user) {
+            return true;
+        }
+
+        return false;
     }
 }

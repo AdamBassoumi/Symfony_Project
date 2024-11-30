@@ -1,0 +1,21 @@
+{# templates/error/404.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}  <!-- Include styles from base.html.twig -->
+    <link rel="stylesheet" href="{{ asset('assets/styles/errors.css') }}">  <!-- Homepage specific CSS -->
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="error-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h1>Oops! Page Not Found!</h1>
+            <p>Looks like you've gone on an adventure to a place that doesn't exist. Try heading back to the homepage!</p>
+            <a href="{{ path('home') }}" class="button">Go to Homepage</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,43 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaire{% endblock %}
-
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('assets/styles/commentaire.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/styles/commentaire_pages.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block body %}
-    <h1>Commentaire</h1>
+    <div class="commentaire-container">
+        <h1 class="commentaire-title">Commentaire Details</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ commentaire.id }}</td>
-            </tr>
-            <tr>
-                <th>Uname</th>
-                <td>{{ commentaire.uname }}</td>
-            </tr>
-            <tr>
-                <th>Text</th>
-                <td>{{ commentaire.text }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ commentaire.date }}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ commentaire.note }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table class="commentaire-details-table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ commentaire.id }}</td>
+                </tr>
+                <tr>
+                    <th>Uname</th>
+                    <td>{{ commentaire.uname }}</td>
+                </tr>
+                <tr>
+                    <th>Text</th>
+                    <td>{{ commentaire.text }}</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>{{ commentaire.date }}</td>
+                </tr>
+                <tr>
+                    <th>Note</th>
+                    <td>{{ commentaire.note }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_commentaire_index') }}">back to list</a>
-
-    <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">edit</a>
-
-    {{ include('commentaire/_delete_form.html.twig') }}
+        <div class="commentaire-actions">
+            <a class="commentaire-back-link" href="{{ path('app_commentaire_index') }}">
+                <i class="fas fa-arrow-left"></i> Back to List
+            </a>
+            <a class="commentaire-edit-link" href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">
+                <i class="fas fa-edit"></i> Edit
+            </a>
+            {{ include('commentaire/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

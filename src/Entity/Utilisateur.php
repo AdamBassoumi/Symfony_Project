@@ -31,9 +31,38 @@ class Utilisateur implements UserInterface,PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: "utilisateur", cascade: ["persist", "remove"] , targetEntity: Shop::class)]
     private ?Shop $shop = null;
 
-    private array $roles = [];
+    #[ORM\Column(type: "string", length: 255)]
+    private ?string $role = 'ROLE_USER';  // Default role
 
-    // Getters and Setters for each property
+    private ?string $confirmMdp = null;
+    private ?string $oldPassword = null;
+
+
+
+
+
+
+    public function getOldPassword(): ?string
+    {
+        return $this->oldPassword;
+    }
+
+    public function setOldPassword(?string $oldPassword): self
+    {
+        $this->oldPassword = $oldPassword;
+        return $this;
+    }
+
+    public function getConfirmMdp(): ?string
+    {
+        return $this->confirmMdp;
+    }
+
+    public function setConfirmMdp(?string $confirmMdp): self
+    {
+        $this->confirmMdp = $confirmMdp;
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -103,20 +132,19 @@ class Utilisateur implements UserInterface,PasswordAuthenticatedUserInterface
 
     public function getRoles(): array
     {
-        // Ensure roles are always returned as an array
-        $roles = $this->roles;
-    
-        // If no roles are set, assign the default 'ROLE_USER'
-        if (empty($roles)) {
-            $roles[] = 'ROLE_USER';  // Default role
+        // Check if the user is an admin based on your custom condition (e.g., email)
+        if ($this->email === 'dom@gmail.com') {
+            // Return only ROLE_ADMIN for this user
+            return ['ROLE_ADMIN'];
         }
-    
-        return $roles; // Return roles as an array
+        
+        // If the user is not an admin, return the default ROLE_USER
+        return ['ROLE_USER'];
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(string $role): self
     {
-        $this->roles = $roles;
+        $this->role = $role;
         return $this;
     }
 

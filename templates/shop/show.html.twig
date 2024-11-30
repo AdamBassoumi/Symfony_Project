@@ -1,34 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Shop{% endblock %}
+{% block title %}{{ shop.nom }} - Shop Details{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}  <!-- Include styles from base.html.twig -->
+    <link rel="stylesheet" href="{{ asset('assets/styles/myshop.css') }}">  <!-- Keep the same homepage specific CSS -->
+{% endblock %}
 
 {% block body %}
-    <h1>Shop</h1>
+    <div class="myshop-container">
+        <h1>{{ shop.nom }}</h1>
+        <p>{{ shop.description }}</p>
+        
+        <h2>Product List</h2>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ shop.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ shop.nom }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ shop.description }}</td>
-            </tr>
-            <tr>
-                <th>DateCreation</th>
-                <td>{{ shop.dateCreation }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- Check if the shop has products -->
+        {% if products|length > 0 %}
+            <ul>
+                {% for produit in products %}
+                    <li>
+                        <strong>{{ produit.name }}</strong><br>
+                        {{ produit.description }}<br>
+                        Price: {{ produit.prix }}<br>
 
-    <a href="{{ path('app_shop_index') }}">back to list</a>
+                        {# Check if the product has an image, otherwise use the placeholder image #}
+                        <img src="{% if produit.fichier %}{{ asset('assets/Product_Images/' ~ produit.fichier) }}{% else %}https://via.placeholder.com/300x200{% endif %}" alt="{{ produit.name }}">
 
-    <a href="{{ path('app_shop_edit', {'id': shop.id}) }}">edit</a>
+                        <!-- Buy Button -->
+                        <a href="#" class="btn btn-success mt-3">
+                            <i class="fas fa-shopping-cart"></i> Buy Now
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No products yet. Add a product!</p>
+        {% endif %}
 
-    {{ include('shop/_delete_form.html.twig') }}
+        <!-- Check if the current user is an admin or the owner of the shop -->
+        {% if is_granted('ROLE_ADMIN') %}
+            <!-- Delete Shop Button, only visible to admin or the shop owner -->
+            <form method="post" action="{{ path('app_shop_delete', {'shopId': shop.id}) }}" onsubmit="return confirm('Are you sure you want to delete this shop?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ shop.id) }}">
+                <button class="btn btn-danger mt-3">
+                    <i class="fas fa-trash-alt"></i> Delete Shop
+                </button>
+            </form>
+        {% endif %}
+
+        <button onclick="history.back()" class="btn btn-secondary mb-3">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+    </div>
 {% endblock %}
